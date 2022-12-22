@@ -1,4 +1,4 @@
-#include "IT.h"
+п»ї#include "IT.h"
 #include <fstream>
 #include <iostream>
 #include <stdlib.h>
@@ -9,8 +9,8 @@
 
 namespace IT
 {
-	IdTable Create(	//создать таблицу ID
-		int size	//ёмкость
+	IdTable Create(	//СЃРѕР·РґР°С‚СЊ С‚Р°Р±Р»РёС†Сѓ ID
+		int size	//С‘РјРєРѕСЃС‚СЊ
 	) {
 		if (size > TI_MAXSIZE)
 		{
@@ -23,17 +23,17 @@ namespace IT
 		return out;
 	};
 	void Add(
-		IdTable& idtable,	//экземпляр таблицы идентификаторов
-		Entry entry			//строка таблицы идентификаторов
+		IdTable& idtable,	//СЌРєР·РµРјРїР»СЏСЂ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+		Entry entry			//СЃС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 	) {
 		if (idtable.size + 1 > idtable.maxsize)
 			throw ERROR_THROW(133);
 		idtable.table[idtable.size++] = entry;
 		//add error maxsize
 	};
-	Entry GetEntry(	//получить строку таблицы идентификаторов
-		IdTable& idtable,	//экземпляр таблицы идентификаторов
-		int n				//строка таблицы идентификаторов
+	Entry GetEntry(	//РїРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєСѓ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+		IdTable& idtable,	//СЌРєР·РµРјРїР»СЏСЂ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+		int n				//СЃС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 	) {
 		if (idtable.size + 1 > idtable.maxsize)
 			throw ERROR_THROW(134);
@@ -41,8 +41,8 @@ namespace IT
 		return idtable.table[n];
 	};
 	int IsId(
-		IdTable& idtable,	//возврат: номер строки(если есть) TI_NULLIDX(если нет)
-		char id[ID_MAXSIZE] //идентификатор
+		IdTable& idtable,	//РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё(РµСЃР»Рё РµСЃС‚СЊ) TI_NULLIDX(РµСЃР»Рё РЅРµС‚)
+		char id[ID_MAXSIZE] //РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
 	) {
 		int flag = -1;
 		bool bflag = false;
@@ -67,7 +67,7 @@ namespace IT
 		return TI_NULLIDX;
 	};
 	int IsLX(
-		IdTable& idtable,	//возврат: номер строки(если есть) TI_NULLID(если нет)
+		IdTable& idtable,	//РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё(РµСЃР»Рё РµСЃС‚СЊ) TI_NULLID(РµСЃР»Рё РЅРµС‚)
 		IDDATATYPE type,
 		unsigned int data
 	) {
@@ -85,7 +85,7 @@ namespace IT
 		return TI_NULLIDX;
 	};
 	int IsLX(
-		IdTable& idtable,	//возврат: номер строки(если есть) TI_NULLID(если нет)
+		IdTable& idtable,	//РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё(РµСЃР»Рё РµСЃС‚СЊ) TI_NULLID(РµСЃР»Рё РЅРµС‚)
 		IDDATATYPE type,
 		char data
 	) {
@@ -103,7 +103,7 @@ namespace IT
 		return TI_NULLIDX;
 	};
 	int IsLX(
-		IdTable& idtable,	//возврат: номер строки(если есть) TI_NULLID(если нет)
+		IdTable& idtable,	//РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё(РµСЃР»Рё РµСЃС‚СЊ) TI_NULLID(РµСЃР»Рё РЅРµС‚)
 		IDDATATYPE type,
 		char* data
 	) {
@@ -148,8 +148,8 @@ namespace IT
 
 
 	bool isUniq(
-		IdTable& idtable,	//возврат: номер строки(если есть) TI_NULLIDX(если нет)
-		char id[ID_MAXSIZE] //идентификатор
+		IdTable& idtable,	//РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё(РµСЃР»Рё РµСЃС‚СЊ) TI_NULLIDX(РµСЃР»Рё РЅРµС‚)
+		char id[ID_MAXSIZE] //РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
 	) {
 		bool bflag = false;
 		int isQ = 0;

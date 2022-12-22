@@ -1,4 +1,4 @@
-#include "Log.h"
+п»ї#include "Log.h"
 #include "GRB.h"
 #include "MFST.h"
 
@@ -143,8 +143,8 @@ namespace MFST
 		{
 		case LENTA_END:         if (shallWrite)MFST_TRACE4(log, "------>LENTA_END")
 			* log.stream << "-------------------------------------------------------------------------------------" << std::endl;
-			sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d:всего строк %d, синтаксический анализ выполнен без ошибок ", 0, lenta_size);
-			*log.stream << std::setw(4) << std::left << 0 << ":всего строк " << lenta_size << ", синтаксический анализ выполнен без ошибок " << std::endl;
+			sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d:РІСЃРµРіРѕ СЃС‚СЂРѕРє %d, СЃРёРЅС‚Р°РєСЃРёС‡РµСЃРєРёР№ Р°РЅР°Р»РёР· РІС‹РїРѕР»РЅРµРЅ Р±РµР· РѕС€РёР±РѕРє ", 0, lenta_size);
+			*log.stream << std::setw(4) << std::left << 0 << ":РІСЃРµРіРѕ СЃС‚СЂРѕРє " << lenta_size << ", СЃРёРЅС‚Р°РєСЃРёС‡РµСЃРєРёР№ Р°РЅР°Р»РёР· РІС‹РїРѕР»РЅРµРЅ Р±РµР· РѕС€РёР±РѕРє " << std::endl;
 			rc = true;
 			break;
 		case NS_NORULE:         if (shallWrite)MFST_TRACE4(log, "------>NS_NORULE")
@@ -187,7 +187,7 @@ namespace MFST
 		if (n < MFST_DIAGN_NUMBER && (lpos = diagnosis[n].lenta_position) >= 0) {
 			errid = greibach.getRule(diagnosis[n].nrule).iderror;
 			Error::ERROR err = Error::geterror(errid);
-			sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d: строка %d,%s", err.id, lex.lextable.table[lpos].sn, err.message);
+			sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d: СЃС‚СЂРѕРєР° %d,%s", err.id, lex.lextable.table[lpos].sn, err.message);
 			rc = buf;
 		};
 		return rc;

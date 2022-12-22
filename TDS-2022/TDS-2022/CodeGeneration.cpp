@@ -1,4 +1,4 @@
-#include "CodeGeneration.h"
+п»ї#include "CodeGeneration.h"
 #include <stack>
 
 namespace CG {
@@ -6,32 +6,32 @@ namespace CG {
 	{
 		for (int i = start; i < end; i++)
 		{
-			//разобрать строку выражения
+			//СЂР°Р·РѕР±СЂР°С‚СЊ СЃС‚СЂРѕРєСѓ РІС‹СЂР°Р¶РµРЅРёСЏ
 			if (t.lextable.table[i].lexema == LEX_EQUAL && t.lextable.table[i].data == '=')
 			{
-				*stream << '\n' << "; String #" << t.lextable.table[i].sn << " :"; // вывод строки
+				*stream << '\n' << "; String #" << t.lextable.table[i].sn << " :"; // РІС‹РІРѕРґ СЃС‚СЂРѕРєРё
 
 				for (int j = -1; t.lextable.table[i + j].lexema != LEX_SEMICOLON; j++) // 
 				{
 					*stream << t.lextable.table[i + j].lexema;
 				}
 				*stream << '\n';
-				int pos = 0;																		// позиция в строке
-				bool isArguments = false;															// флаг аргументов
-				IT::Entry* func, * save = nullptr;													// функция, сохранение
+				int pos = 0;																		// РїРѕР·РёС†РёСЏ РІ СЃС‚СЂРѕРєРµ
+				bool isArguments = false;															// С„Р»Р°Рі Р°СЂРіСѓРјРµРЅС‚РѕРІ
+				IT::Entry* func, * save = nullptr;													// С„СѓРЅРєС†РёСЏ, СЃРѕС…СЂР°РЅРµРЅРёРµ
 				IT::Entry* recipent = &t.idtable.table[t.lextable.table[i - 1].idxTI];
 				while (true)				
 				{
 					pos++;
 					if (t.lextable.table[i + pos].lexema == LEX_SEMICOLON || t.lextable.table[i + pos].lexema == '!') // 
 					{
-						if (recipent->iddatatype != IT::CHR)										// если не char
+						if (recipent->iddatatype != IT::CHR)										// РµСЃР»Рё РЅРµ char
 						{
-							*stream << "pop " << recipent->id << '\n';								// то выталкиваем в переменную
+							*stream << "pop " << recipent->id << '\n';								// С‚Рѕ РІС‹С‚Р°Р»РєРёРІР°РµРј РІ РїРµСЂРµРјРµРЅРЅСѓСЋ
 						}
 						else
 						{
-							*stream << "pop eax\nmov " << recipent->id << ", al" << '\n';			// иначе в eax
+							*stream << "pop eax\nmov " << recipent->id << ", al" << '\n';			// РёРЅР°С‡Рµ РІ eax
 						}
 						break;
 					}
@@ -74,7 +74,7 @@ namespace CG {
 								pos++;
 							}
 							*stream << '\n';
-							*stream << "push eax ;результат функции";
+							*stream << "push eax ;СЂРµР·СѓР»СЊС‚Р°С‚ С„СѓРЅРєС†РёРё";
 							*stream << '\n';
 						}
 					}
@@ -96,7 +96,7 @@ namespace CG {
 							break;
 						}
 						case ':': {
-							*stream << "push edx ; сохраняем данные регистра edx" << '\n';
+							*stream << "push edx ; СЃРѕС…СЂР°РЅСЏРµРј РґР°РЅРЅС‹Рµ СЂРµРіРёСЃС‚СЂР° edx" << '\n';
 							*stream << "mov edx, 0" << '\n';
 							*stream << "TEST  EBX, EBX" << '\n';
 							*stream << "JZ    div_by_0" << '\n';
@@ -105,7 +105,7 @@ namespace CG {
 							break;
 						}
 						case '%': {
-							*stream << "push edx ; сохраняем данные регистра edx" << '\n';
+							*stream << "push edx ; СЃРѕС…СЂР°РЅСЏРµРј РґР°РЅРЅС‹Рµ СЂРµРіРёСЃС‚СЂР° edx" << '\n';
 							*stream << "mov edx, 0" << '\n';
 							*stream << "TEST  EBX, EBX" << '\n';
 							*stream << "JZ    div_by_0" << '\n';
@@ -116,14 +116,14 @@ namespace CG {
 						}
 
 						case '/': {
-							*stream << "push ecx ; сохраняем данные регистра ecx" << '\n';
+							*stream << "push ecx ; СЃРѕС…СЂР°РЅСЏРµРј РґР°РЅРЅС‹Рµ СЂРµРіРёСЃС‚СЂР° ecx" << '\n';
 							*stream << "mov ecx, ebx" << '\n';
 							*stream << "SHL eax, cl" << '\n';
 							*stream << "pop ecx" << '\n';
 							break;
 						}
 						case '\\': {
-							*stream << "push ecx ; сохраняем данные регистра ecx" << '\n';
+							*stream << "push ecx ; СЃРѕС…СЂР°РЅСЏРµРј РґР°РЅРЅС‹Рµ СЂРµРіРёСЃС‚СЂР° ecx" << '\n';
 							*stream << "mov ecx, ebx" << '\n';
 							*stream << "SHR eax, cl" << '\n';
 							*stream << "pop ecx" << '\n';
@@ -135,7 +135,7 @@ namespace CG {
 					}
 				}
 			}
-			//разобрать ретурн
+			//СЂР°Р·РѕР±СЂР°С‚СЊ СЂРµС‚СѓСЂРЅ
 			else if (t.lextable.table[i].lexema == LEX_RETURN) {
 				if (t.idtable.table[t.lextable.table[i + 1].idxTI].iddatatype == IT::CHR)
 				{
@@ -146,7 +146,7 @@ namespace CG {
 					*stream << "\nmov eax, " << t.idtable.table[t.lextable.table[i + 1].idxTI].id << '\n';
 				}
 			}
-			//разобрать вывод
+			//СЂР°Р·РѕР±СЂР°С‚СЊ РІС‹РІРѕРґ
 			else if (t.lextable.table[i].lexema == LEX_PRINT) {
 				//pos++;
 				switch (t.idtable.table[t.lextable.table[i + 1].idxTI].iddatatype)
@@ -177,7 +177,7 @@ namespace CG {
 				}
 				}
 			}
-			//TODO: разобрать цикл
+			//TODO: СЂР°Р·РѕР±СЂР°С‚СЊ С†РёРєР»
 			else if (t.lextable.table[i].lexema == LEX_UNTIL) {
 				int pos = 1;
 				int st;
@@ -226,9 +226,9 @@ namespace CG {
 
 						}break;
 					}
-					// TODO: разобрать операторы
+					// TODO: СЂР°Р·РѕР±СЂР°С‚СЊ РѕРїРµСЂР°С‚РѕСЂС‹
 					case LEX_BOOL_OPERATOR: {
-						if (getExpressionParams) // если идет разбор выражения
+						if (getExpressionParams) // РµСЃР»Рё РёРґРµС‚ СЂР°Р·Р±РѕСЂ РІС‹СЂР°Р¶РµРЅРёСЏ
 						{
 							switch (t.lextable.table[i + pos].data)
 							{
@@ -280,7 +280,7 @@ namespace CG {
 						break;
 					}
 					}
-					//закончился наш цикл
+					//Р·Р°РєРѕРЅС‡РёР»СЃСЏ РЅР°С€ С†РёРєР»
 					if (leftSquareCount == 0 && !getExpressionParams)
 					{
 
@@ -360,12 +360,12 @@ namespace CG {
 							}
 
 							case '<': {
-								oper = "ja";//первый больше второго
+								oper = "ja";//РїРµСЂРІС‹Р№ Р±РѕР»СЊС€Рµ РІС‚РѕСЂРѕРіРѕ
 								break;
 							}
 
 							case '>': {
-								oper = "jl";//первый меньше второго
+								oper = "jl";//РїРµСЂРІС‹Р№ РјРµРЅСЊС€Рµ РІС‚РѕСЂРѕРіРѕ
 								break;
 							}
 							}
@@ -398,7 +398,7 @@ namespace CG {
 						break;
 					}
 					}
-					//закончился наш цикл
+					//Р·Р°РєРѕРЅС‡РёР»СЃСЏ РЅР°С€ С†РёРєР»
 					if (leftSquareCount == 0 && !getExpressionParams)
 					{
 
@@ -435,7 +435,7 @@ namespace CG {
 		for (int i = 0; i < t.idtable.size; i++)
 		{
 			if (t.idtable.table[i].idtype == IT::F)
-			{	//Если библиотечная
+			{	//Р•СЃР»Рё Р±РёР±Р»РёРѕС‚РµС‡РЅР°СЏ
 				if (t.idtable.table[i].isExternal == true)
 				{
 					*stream << "\n\t" << t.idtable.table[i].id << " PROTO";
@@ -483,7 +483,7 @@ namespace CG {
 	}
 	void Constants(std::ofstream* stream, LEX::LEX t) {
 		*stream << ".const\n";
-		*stream << "divideOnZeroExeption BYTE \"Попытка деления на ноль.\", 0  ;STR, для вывода ошибки при делении на ноль\n";
+		*stream << "divideOnZeroExeption BYTE \"РџРѕРїС‹С‚РєР° РґРµР»РµРЅРёСЏ РЅР° РЅРѕР»СЊ.\", 0  ;STR, РґР»СЏ РІС‹РІРѕРґР° РѕС€РёР±РєРё РїСЂРё РґРµР»РµРЅРёРё РЅР° РЅРѕР»СЊ\n";
 		for (int i = 0; i < t.idtable.size; i++)
 		{
 			if (t.idtable.table[i].idtype == IT::L)
@@ -540,7 +540,7 @@ namespace CG {
 		for (int i = 0; i < t.idtable.size; i++)
 		{
 			if (t.idtable.table[i].idtype == IT::F)
-			{	//если не библиотечная
+			{	//РµСЃР»Рё РЅРµ Р±РёР±Р»РёРѕС‚РµС‡РЅР°СЏ
 				if (t.idtable.table[i].isExternal == false)
 				{
 
@@ -550,7 +550,7 @@ namespace CG {
 					bool commaFlag = false;
 					while (true)
 					{
-						//запись параметров
+						//Р·Р°РїРёСЃСЊ РїР°СЂР°РјРµС‚СЂРѕРІ
 						if (t.lextable.table[t.idtable.table[i].idxfirstLE + pos].lexema == LEX_ID
 							&&
 							t.idtable.table[t.lextable.table[t.idtable.table[i].idxfirstLE + pos].idxTI].idtype == IT::P)
@@ -591,7 +591,7 @@ namespace CG {
 					pos += 4;
 					end = t.idtable.table[i].idxfirstLE + pos;
 					InvokeExpressions(stream, t, start, end);
-					//TODO: проверить
+					//TODO: РїСЂРѕРІРµСЂРёС‚СЊ
 					*stream << "ret";//<< retsize;
 					*stream << "\n" << "$" << t.idtable.table[i].id << " ENDP\n\n";
 				}
@@ -599,8 +599,8 @@ namespace CG {
 		}
 	}
 
-	void Code(std::ofstream* stream, LEX::LEX t) {							// сегмент кода - исполняемый код 
-		*stream << "\n.code\n";												// сегмент кода - исполняемый код 
+	void Code(std::ofstream* stream, LEX::LEX t) {							// СЃРµРіРјРµРЅС‚ РєРѕРґР° - РёСЃРїРѕР»РЅСЏРµРјС‹Р№ РєРѕРґ 
+		*stream << "\n.code\n";												// СЃРµРіРјРµРЅС‚ РєРѕРґР° - РёСЃРїРѕР»РЅСЏРµРјС‹Р№ РєРѕРґ 
 
 		WriteFunctions(stream, t);
 

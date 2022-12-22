@@ -1,4 +1,4 @@
-#include "Parm.h"
+п»ї#include "Parm.h"
 #include "Error.h"
 #include "Log.h"
 #include "In.h"
@@ -10,7 +10,7 @@
 #include <cstdarg>
 #include "time.h"
 
-namespace Log //работа с протоколом
+namespace Log //СЂР°Р±РѕС‚Р° СЃ РїСЂРѕС‚РѕРєРѕР»РѕРј
 {
 	LOG getlog(wchar_t logfile[])
 	{
@@ -48,7 +48,7 @@ namespace Log //работа с протоколом
 
 	void WriteLog(LOG log)
 	{
-		*(log.stream) << "---- Протокол -----\n\tДата: ";
+		*(log.stream) << "---- РџСЂРѕС‚РѕРєРѕР» -----\n\tР”Р°С‚Р°: ";
 		time_t time_sec = time(NULL);
 		tm time_date;
 		localtime_s(&time_date, &time_sec);
@@ -65,7 +65,7 @@ namespace Log //работа с протоколом
 	{
 
 
-		*log.stream << "---- Параметры----\n";
+		*log.stream << "---- РџР°СЂР°РјРµС‚СЂС‹----\n";
 
 		int i = 0;
 		char ch;
@@ -84,23 +84,23 @@ namespace Log //работа с протоколом
 	}
 	void WriteIn(LOG log, In::IN in)
 	{
-		*(log.stream) << "---- Исходные данные ------\n";
-		*(log.stream) << "Количество символов: " << in.size;
-		*(log.stream) << "\nКоличество лексем: " << in.lexems.size();
-		*(log.stream) << "\nКоличество строк: " << in.lines << std::endl;
+		*(log.stream) << "---- РСЃС…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ ------\n";
+		*(log.stream) << "РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ: " << in.size;
+		*(log.stream) << "\nРљРѕР»РёС‡РµСЃС‚РІРѕ Р»РµРєСЃРµРј: " << in.lexems.size();
+		*(log.stream) << "\nРљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє: " << in.lines << std::endl;
 	}
 	void WriteError(LOG log, Error::ERROR error)
 	{
 
-		std::cout << "Ошибка " << error.id << ": " << error.message;
+		std::cout << "РћС€РёР±РєР° " << error.id << ": " << error.message;
 		if (error.inext.col != -1 && error.inext.line != -1)
-			std::cout << ", строка " << error.inext.line << ", столбец " << error.inext.col << std::endl;
+			std::cout << ", СЃС‚СЂРѕРєР° " << error.inext.line << ", СЃС‚РѕР»Р±РµС† " << error.inext.col << std::endl;
 
 		if (log.stream != NULL)
 		{
-			*log.stream << "\nОшибка " << error.id << ": " << error.message;
+			*log.stream << "\nРћС€РёР±РєР° " << error.id << ": " << error.message;
 			if (error.inext.col != -1 && error.inext.line != -1)
-				*(log.stream) << ", строка " << error.inext.line << ", столбец " << error.inext.col << std::endl;
+				*(log.stream) << ", СЃС‚СЂРѕРєР° " << error.inext.line << ", СЃС‚РѕР»Р±РµС† " << error.inext.col << std::endl;
 			else
 				*(log.stream) << std::endl;
 		}
@@ -110,12 +110,12 @@ namespace Log //работа с протоколом
 
 	void LogTables(LOG log, LEX::LEX t) {
 
-		*log.stream << std::setw(9 + 12 + 12 + 15 + 25) << std::left << "--------Таблица лексем--------" << std::endl;
-		*log.stream << std::setw(9) << std::left << "Позиция"
-			<< std::setw(12) << std::left << "№ строки"
-			<< std::setw(12) << std::left << "№ столбца"
-			<< std::setw(15) << std::left << "Лексема"
-			<< std::setw(25) << std::left << "Индекс таблицы идентификаторов"
+		*log.stream << std::setw(9 + 12 + 12 + 15 + 25) << std::left << "--------РўР°Р±Р»РёС†Р° Р»РµРєСЃРµРј--------" << std::endl;
+		*log.stream << std::setw(9) << std::left << "РџРѕР·РёС†РёСЏ"
+			<< std::setw(12) << std::left << "в„– СЃС‚СЂРѕРєРё"
+			<< std::setw(12) << std::left << "в„– СЃС‚РѕР»Р±С†Р°"
+			<< std::setw(15) << std::left << "Р›РµРєСЃРµРјР°"
+			<< std::setw(25) << std::left << "РРЅРґРµРєСЃ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ"
 			<< std::endl;
 
 		for (int i = 0; i < t.lextable.size; i++)
@@ -131,12 +131,12 @@ namespace Log //работа с протоколом
 	}
 	void LogIDTables(LOG log, LEX::LEX t) {
 
-		*log.stream << std::setw(9 + 16 + 15 + 15 + 15) << std::left << "\n\n--------Таблица идентификаторов--------" << std::endl;
-		*log.stream << std::setw(9) << std::left << "Позиция"
-			<< std::setw(16) << std::left << "Имя"
-			<< std::setw(15) << std::left << "Вид"
-			<< std::setw(15) << std::left << "Тип данных"
-			<< std::setw(15) << std::left << "Значение"
+		*log.stream << std::setw(9 + 16 + 15 + 15 + 15) << std::left << "\n\n--------РўР°Р±Р»РёС†Р° РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ--------" << std::endl;
+		*log.stream << std::setw(9) << std::left << "РџРѕР·РёС†РёСЏ"
+			<< std::setw(16) << std::left << "РРјСЏ"
+			<< std::setw(15) << std::left << "Р’РёРґ"
+			<< std::setw(15) << std::left << "РўРёРї РґР°РЅРЅС‹С…"
+			<< std::setw(15) << std::left << "Р—РЅР°С‡РµРЅРёРµ"
 			<< std::endl;
 		for (int i = 0; i < t.idtable.size; i++)
 		{
@@ -146,36 +146,36 @@ namespace Log //работа с протоколом
 			char* buff;
 			switch (b.idtype) {
 			case IT::V:
-				type = "Переменная";
+				type = "РџРµСЂРµРјРµРЅРЅР°СЏ";
 				break;
 			case IT::F:
-				type = "Функция";
+				type = "Р¤СѓРЅРєС†РёСЏ";
 				break;
 			case IT::L:
-				type = "Литерал";
+				type = "Р›РёС‚РµСЂР°Р»";
 				break;
 			case IT::P:
-				type = "Параметр";
+				type = "РџР°СЂР°РјРµС‚СЂ";
 				break;
 			}
 			switch (b.iddatatype) {
 			case IT::INT:
-				datatype = "Число";
+				datatype = "Р§РёСЃР»Рѕ";
 				buff = new char[10];
 				_itoa(b.value.vint, buff, 10);
 				data = buff;
 				delete[]buff;
 				break;
 			case IT::STR:
-				datatype = "Строка";
+				datatype = "РЎС‚СЂРѕРєР°";
 				if (b.value.vstr.len == 0)
-					data = "*пустая строка*";
+					data = "*РїСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР°*";
 				else
 					data = b.value.vstr.str;
 				break;
 
 			case IT::CHR:
-				datatype = "Символ";
+				datatype = "РЎРёРјРІРѕР»";
 				data = b.value.vchar;
 				break;
 

@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "Semantic.h"
 namespace Semantic {
 	void doAnalyse(LEX::LEX t) {
@@ -33,7 +33,7 @@ namespace Semantic {
 								if (datatype != t.idtable.table[t.lextable.table[i + pos].idxTI].iddatatype)
 									throw ERROR_THROW_IN(704, t.lextable.table[i + pos].sn, t.lextable.table[i + pos].cn)
 
-									//если функция то пропускай gfhfvtnhs aeyrwbb
+									//РµСЃР»Рё С„СѓРЅРєС†РёСЏ С‚Рѕ РїСЂРѕРїСѓСЃРєР°Р№ gfhfvtnhs aeyrwbb
 									if (t.idtable.table[t.lextable.table[i + pos].idxTI].idtype == IT::F) {
 										while (t.lextable.table[i + pos].lexema != LEX_RIGHTHESIS)
 											pos++;
@@ -52,7 +52,7 @@ namespace Semantic {
 				}
 				}
 			}
-			//проверка аргументов while
+			//РїСЂРѕРІРµСЂРєР° Р°СЂРіСѓРјРµРЅС‚РѕРІ while
 			if (t.lextable.table[i].lexema == LEX_UNTIL) {
 				int pos = 2;
 				while (true) {
@@ -69,7 +69,7 @@ namespace Semantic {
 		}
 	}
 
-	//проверка передаваемых в функцию параметров
+	//РїСЂРѕРІРµСЂРєР° РїРµСЂРµРґР°РІР°РµРјС‹С… РІ С„СѓРЅРєС†РёСЋ РїР°СЂР°РјРµС‚СЂРѕРІ
 	void parameters(LEX::LEX t) {
 		for (int i = 0; i < t.lextable.size; i++) {
 			if (t.lextable.table[i].lexema == LEX_PRINT && t.idtable.table[t.lextable.table[i + 1].idxTI].idtype == IT::F)
@@ -78,7 +78,7 @@ namespace Semantic {
 				{
 					short* types = new short[256];
 					int typesLen = 0;
-					//где объявлена функция в LT
+					//РіРґРµ РѕР±СЉСЏРІР»РµРЅР° С„СѓРЅРєС†РёСЏ РІ LT
 					int funcDeclarePos = t.idtable.table[t.lextable.table[i].idxTI].idxfirstLE;
 					while (t.lextable.table[++funcDeclarePos].lexema != LEX_RIGHTHESIS)
 					{
@@ -101,7 +101,7 @@ namespace Semantic {
 	}
 
 
-	//возврат функции!!!!
+	//РІРѕР·РІСЂР°С‚ С„СѓРЅРєС†РёРё!!!!
 	void returns(LEX::LEX t) {
 		for (int i = 0; i < t.lextable.size; i++) {
 			if (t.lextable.table[i].lexema == LEX_ID && t.idtable.table[t.lextable.table[i].idxTI].idtype == IT::F && t.lextable.table[i - 3].lexema == LEX_DECLARE)

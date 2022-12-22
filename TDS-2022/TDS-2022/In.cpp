@@ -1,4 +1,4 @@
-#include "Error.h"
+п»ї#include "Error.h"
 #include "In.h"
 #include <fstream>
 #include "FST.h"
@@ -13,7 +13,7 @@ namespace In
 		out.ignor = 0;
 		std::ifstream file(infile);
 		if (!file)
-			throw ERROR_THROW(110)//файл не открыт
+			throw ERROR_THROW(110)//С„Р°Р№Р» РЅРµ РѕС‚РєСЂС‹С‚
 		else
 		{
 			unsigned int chars[] = IN_CODE_TABLE;
@@ -24,17 +24,17 @@ namespace In
 			if (size > IN_MAX_LEN_TEXT)
 				throw ERROR_THROW(112)
 				unsigned char tmp;
-			int line_counter = 0; //счетчик символов строки
+			int line_counter = 0; //СЃС‡РµС‚С‡РёРє СЃРёРјРІРѕР»РѕРІ СЃС‚СЂРѕРєРё
 			lexem currentLex;
 			unsigned char* lexContainer = new unsigned char[MAX_LEXEM_LENGTH];
 			int lexContainerLen = 0;
 			bool Cflag = false;
-			//WriteLine(log, "Начало чтения файла!");
+			//WriteLine(log, "РќР°С‡Р°Р»Рѕ С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р°!");
 			while (file >> tmp)
 			{
 				switch (chars[(int)tmp])
 				{
-				case IN::T://out.T://IN::T //введен
+				case IN::T://out.T://IN::T //РІРІРµРґРµРЅ
 				{
 					line_counter++;
 					out.size++;
@@ -47,7 +47,7 @@ namespace In
 					lexContainer[lexContainerLen++] = tmp;
 					break;
 				}
-				case IN::C: //кавычка
+				case IN::C: //РєР°РІС‹С‡РєР°
 				{
 					line_counter++;
 					out.size++;
@@ -89,7 +89,7 @@ namespace In
 						throw ERROR_THROW_IN(113, out.lines, line_counter);
 					break;
 				}
-				case IN::D: //кавычка
+				case IN::D: //РєР°РІС‹С‡РєР°
 				{
 					if (lexContainerLen != 0) {
 						lexContainer[lexContainerLen++] = '\0';
@@ -156,7 +156,7 @@ namespace In
 					break;
 				}
 
-				case IN::L:// одиночная лексема
+				case IN::L:// РѕРґРёРЅРѕС‡РЅР°СЏ Р»РµРєСЃРµРјР°
 				{
 					out.size++;
 					line_counter++;
@@ -185,7 +185,7 @@ namespace In
 					lexContainerLen = 0;
 					break;
 				}
-				case IN::F://out.F://IN::T //введен
+				case IN::F://out.F://IN::T //РІРІРµРґРµРЅ
 				{
 					line_counter++;
 					throw ERROR_THROW_IN(111, out.lines, line_counter)
@@ -198,7 +198,7 @@ namespace In
 						file >> tmp;
 					} while (chars[(int)tmp] != IN::N);
 				}
-				case IN::N://out.F://IN::T //введен
+				case IN::N://out.F://IN::T //РІРІРµРґРµРЅ
 				{
 					out.size++;
 					out.lines++;
@@ -227,7 +227,7 @@ namespace In
 			}
 			delete[]lexContainer;
 			file.close();
-			//WriteLine(log, "Конец чтения файла!");
+			//WriteLine(log, "РљРѕРЅРµС† С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р°!");
 			//for (lexem n : out.lexems) std::cout << n.lexem << "\n";
 		}
 

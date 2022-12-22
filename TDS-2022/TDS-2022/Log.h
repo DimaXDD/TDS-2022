@@ -1,27 +1,27 @@
-#pragma once
+п»ї#pragma once
 #include <fstream>
 #include "In.h"
 #include "Parm.h"
 #include "LEX.h"
 #include "Error.h"
 
-namespace Log //работа с протоколом
+namespace Log //СЂР°Р±РѕС‚Р° СЃ РїСЂРѕС‚РѕРєРѕР»РѕРј
 {
-	struct LOG //протокол
+	struct LOG //РїСЂРѕС‚РѕРєРѕР»
 	{
-		wchar_t logfile[PARM_MAX_SIZE]; //имя файла протокола
-		std::ofstream* stream;			//входной поток протокола
+		wchar_t logfile[PARM_MAX_SIZE]; //РёРјСЏ С„Р°Р№Р»Р° РїСЂРѕС‚РѕРєРѕР»Р°
+		std::ofstream* stream;			//РІС…РѕРґРЅРѕР№ РїРѕС‚РѕРє РїСЂРѕС‚РѕРєРѕР»Р°
 	};
 
-	static const LOG INITLOG = { L"",NULL };		//структура для начальной инициализации LOG
-	LOG getlog(wchar_t logfile[]);					// сформировать структуру LOG
-	void WriteLine(LOG log, const char* c, ...); //вывести в протокол конкатенацию строк
-	void WriteLine(LOG log, wchar_t* c, ...); //вывести в протокол конкатенацию строк
-	void WriteLog(LOG log); //вывести в протокол заголовок
-	void WriteParm(LOG log, Parm::PARM parm); //вывести в протокол информацию о входных параметрах
-	void WriteIn(LOG log, In::IN in); //вывести в протокол информацию о входном потоке
-	void WriteError(LOG log, Error::ERROR error); //вывести в протокол информацию об ошибке
-	void LogTables(LOG log, LEX::LEX t); //Вывод таблиц лексем
-	void LogIDTables(LOG log, LEX::LEX t); //Вывод таблиц идентификаторов
-	void Close(LOG log); //закрыть протокол
+	static const LOG INITLOG = { L"",NULL };		//СЃС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ РЅР°С‡Р°Р»СЊРЅРѕР№ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё LOG
+	LOG getlog(wchar_t logfile[]);					// СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ СЃС‚СЂСѓРєС‚СѓСЂСѓ LOG
+	void WriteLine(LOG log, const char* c, ...); //РІС‹РІРµСЃС‚Рё РІ РїСЂРѕС‚РѕРєРѕР» РєРѕРЅРєР°С‚РµРЅР°С†РёСЋ СЃС‚СЂРѕРє
+	void WriteLine(LOG log, wchar_t* c, ...); //РІС‹РІРµСЃС‚Рё РІ РїСЂРѕС‚РѕРєРѕР» РєРѕРЅРєР°С‚РµРЅР°С†РёСЋ СЃС‚СЂРѕРє
+	void WriteLog(LOG log); //РІС‹РІРµСЃС‚Рё РІ РїСЂРѕС‚РѕРєРѕР» Р·Р°РіРѕР»РѕРІРѕРє
+	void WriteParm(LOG log, Parm::PARM parm); //РІС‹РІРµСЃС‚Рё РІ РїСЂРѕС‚РѕРєРѕР» РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РІС…РѕРґРЅС‹С… РїР°СЂР°РјРµС‚СЂР°С…
+	void WriteIn(LOG log, In::IN in); //РІС‹РІРµСЃС‚Рё РІ РїСЂРѕС‚РѕРєРѕР» РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РІС…РѕРґРЅРѕРј РїРѕС‚РѕРєРµ
+	void WriteError(LOG log, Error::ERROR error); //РІС‹РІРµСЃС‚Рё РІ РїСЂРѕС‚РѕРєРѕР» РёРЅС„РѕСЂРјР°С†РёСЋ РѕР± РѕС€РёР±РєРµ
+	void LogTables(LOG log, LEX::LEX t); //Р’С‹РІРѕРґ С‚Р°Р±Р»РёС† Р»РµРєСЃРµРј
+	void LogIDTables(LOG log, LEX::LEX t); //Р’С‹РІРѕРґ С‚Р°Р±Р»РёС† РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+	void Close(LOG log); //Р·Р°РєСЂС‹С‚СЊ РїСЂРѕС‚РѕРєРѕР»
 }

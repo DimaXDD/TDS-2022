@@ -1,4 +1,4 @@
-#include "LT.h"
+ï»¿#include "LT.h"
 #include "Error.h"
 #include <fstream>
 
@@ -21,9 +21,9 @@ namespace LT
 		return out;
 	}
 
-	void Add(	//äîáàâèòü ñòðîêó â òàáëèöó ëåêñåì
-		LexTable& lextable,		//ýêçåìïëÿð òàáëèöû ëåêñåì
-		Entry entry	//ñòðîêà òàáëèöû ëåêñåì
+	void Add(	//Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ð² Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ Ð»ÐµÐºÑÐµÐ¼
+		LexTable& lextable,		//ÑÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ Ð»ÐµÐºÑÐµÐ¼
+		Entry entry	//ÑÑ‚Ñ€Ð¾ÐºÐ° Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ Ð»ÐµÐºÑÐµÐ¼
 	)
 	{
 		if (lextable.size + 1 > lextable.maxsize)
@@ -31,9 +31,9 @@ namespace LT
 		lextable.table[lextable.size++] = entry;
 	}
 
-	Entry GetEntry(	//ïîëó÷èòü ñòðîêó òàáëèöû ëåêñåì
-		LexTable& lextable, //ýêçåìïëÿð
-		int n //íîìåð ïîëó÷àåìîé ñòðîêè
+	Entry GetEntry(	//Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ñ‚ÑŒ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ Ð»ÐµÐºÑÐµÐ¼
+		LexTable& lextable, //ÑÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€
+		int n //Ð½Ð¾Ð¼ÐµÑ€ Ð¿Ð¾Ð»ÑƒÑ‡Ð°ÐµÐ¼Ð¾Ð¹ ÑÑ‚Ñ€Ð¾ÐºÐ¸
 	)
 	{
 		if (lextable.size > lextable.maxsize)

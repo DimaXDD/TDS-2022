@@ -1,37 +1,37 @@
-#pragma once
+п»ї#pragma once
 
-#define ID_MAXSIZE		26			//макс кол-во символов в идентиф
-#define ID_CURRENT_MAXSIZE		10 //макс кол-во символов в идентиф
+#define ID_MAXSIZE		26			//РјР°РєСЃ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ РІ РёРґРµРЅС‚РёС„
+#define ID_CURRENT_MAXSIZE		10 //РјР°РєСЃ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ РІ РёРґРµРЅС‚РёС„
 
-#define	TI_MAXSIZE		4096 //макс кол-во строк в табл идентификаторов
-#define TI_INT_DEFAULT	0x00000000	//значение int по дефолту
-#define	TI_STR_DEFAULT	0x00		//значение string по дефолту
-#define	TI_NULLIDX		0xffffffff	//нет элемента таблицы идентификаторов
+#define	TI_MAXSIZE		4096 //РјР°РєСЃ РєРѕР»-РІРѕ СЃС‚СЂРѕРє РІ С‚Р°Р±Р» РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+#define TI_INT_DEFAULT	0x00000000	//Р·РЅР°С‡РµРЅРёРµ int РїРѕ РґРµС„РѕР»С‚Сѓ
+#define	TI_STR_DEFAULT	0x00		//Р·РЅР°С‡РµРЅРёРµ string РїРѕ РґРµС„РѕР»С‚Сѓ
+#define	TI_NULLIDX		0xffffffff	//РЅРµС‚ СЌР»РµРјРµРЅС‚Р° С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 #define	TI_STR_MAXSIZE	255
 
-#define FALSYNUMBER 17	//используй как нуль
+#define FALSYNUMBER 17	//РёСЃРїРѕР»СЊР·СѓР№ РєР°Рє РЅСѓР»СЊ
 
-namespace IT	//таблица идентификаторов
+namespace IT	//С‚Р°Р±Р»РёС†Р° РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 {
-	enum IDDATATYPE { INT = 1, STR = 2, CHR = 3, BOOL = 4 };//таблица данных идентификаторов fls - empty
-	enum IDTYPE { V = 1, F = 2, P = 3, L = 4 };//типы идентификаторов - переменная функция параметр литерал
+	enum IDDATATYPE { INT = 1, STR = 2, CHR = 3, BOOL = 4 };//С‚Р°Р±Р»РёС†Р° РґР°РЅРЅС‹С… РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ fls - empty
+	enum IDTYPE { V = 1, F = 2, P = 3, L = 4 };//С‚РёРїС‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ - РїРµСЂРµРјРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїР°СЂР°РјРµС‚СЂ Р»РёС‚РµСЂР°Р»
 
-	struct Entry //строка таблицы идентификаторов
+	struct Entry //СЃС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 	{
-		int idxfirstLE; //индекс первой строки в таблице лексем
-		char id[ID_MAXSIZE]; //идентификатор
-		bool isExternal; //флаг подключения
-		IDDATATYPE iddatatype; //тип данных
-		IDTYPE idtype; //тип идентификатора
+		int idxfirstLE; //РёРЅРґРµРєСЃ РїРµСЂРІРѕР№ СЃС‚СЂРѕРєРё РІ С‚Р°Р±Р»РёС†Рµ Р»РµРєСЃРµРј
+		char id[ID_MAXSIZE]; //РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
+		bool isExternal; //С„Р»Р°Рі РїРѕРґРєР»СЋС‡РµРЅРёСЏ
+		IDDATATYPE iddatatype; //С‚РёРї РґР°РЅРЅС‹С…
+		IDTYPE idtype; //С‚РёРї РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°
 		union {
-			unsigned int vint; //значение integer
-			char vchar;//значение sting
+			unsigned int vint; //Р·РЅР°С‡РµРЅРёРµ integer
+			char vchar;//Р·РЅР°С‡РµРЅРёРµ sting
 			struct
 			{
-				char len;//кол-во символов в string
-				char* str;// [TI_STR_MAXSIZE] ;//символы стринг
-			} vstr;//значение sting
-		} value; //значение идентификатора
+				char len;//РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ РІ string
+				char* str;// [TI_STR_MAXSIZE] ;//СЃРёРјРІРѕР»С‹ СЃС‚СЂРёРЅРі
+			} vstr;//Р·РЅР°С‡РµРЅРёРµ sting
+		} value; //Р·РЅР°С‡РµРЅРёРµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°
 		Entry(int idxfirstLE, const char* id, IDDATATYPE iddatatype, IDTYPE idtype, bool e = false) {
 			this->isExternal = e;
 			this->idxfirstLE = idxfirstLE;
@@ -164,44 +164,44 @@ namespace IT	//таблица идентификаторов
 		};
 		Entry() = default;
 	};
-	struct IdTable		//экземпляр таблицы ид
+	struct IdTable		//СЌРєР·РµРјРїР»СЏСЂ С‚Р°Р±Р»РёС†С‹ РёРґ
 	{
-		int maxsize;	//ёмкость таблицы
-		int size;		//текущий размер
-		Entry* table;	//массив строк таблицы идентификаторов
+		int maxsize;	//С‘РјРєРѕСЃС‚СЊ С‚Р°Р±Р»РёС†С‹
+		int size;		//С‚РµРєСѓС‰РёР№ СЂР°Р·РјРµСЂ
+		Entry* table;	//РјР°СЃСЃРёРІ СЃС‚СЂРѕРє С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 	};
-	IdTable Create(	//создать таблицу ID
-		int size	//ёмкость
+	IdTable Create(	//СЃРѕР·РґР°С‚СЊ С‚Р°Р±Р»РёС†Сѓ ID
+		int size	//С‘РјРєРѕСЃС‚СЊ
 	);
 	void Add(
-		IdTable& idtable,	//экземпляр таблицы идентификаторов
-		Entry entry			//строка таблицы идентификаторов
+		IdTable& idtable,	//СЌРєР·РµРјРїР»СЏСЂ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+		Entry entry			//СЃС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 	);
-	Entry GetEntry(	//получить строку таблицы идентификаторов
-		IdTable& idtable,	//экземпляр таблицы идентификаторов
-		int n				//строка таблицы идентификаторов
+	Entry GetEntry(	//РїРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєСѓ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+		IdTable& idtable,	//СЌРєР·РµРјРїР»СЏСЂ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+		int n				//СЃС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 	);
 	int IsId(
-		IdTable& idtable,	//возврат: номер строки(если есть) TI_NULLID(если нет)
-		char id[ID_MAXSIZE] //идентификатор
+		IdTable& idtable,	//РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё(РµСЃР»Рё РµСЃС‚СЊ) TI_NULLID(РµСЃР»Рё РЅРµС‚)
+		char id[ID_MAXSIZE] //РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
 	);
 	int IsLX(
-		IdTable& idtable,	//возврат: номер строки(если есть) TI_NULLID(если нет)
+		IdTable& idtable,	//РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё(РµСЃР»Рё РµСЃС‚СЊ) TI_NULLID(РµСЃР»Рё РЅРµС‚)
 		IDDATATYPE type,
 		unsigned int data
 	);
 	int IsLX(
-		IdTable& idtable,	//возврат: номер строки(если есть) TI_NULLID(если нет)
+		IdTable& idtable,	//РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё(РµСЃР»Рё РµСЃС‚СЊ) TI_NULLID(РµСЃР»Рё РЅРµС‚)
 		IDDATATYPE type,
 		char data
 	);
 	int IsLX(
-		IdTable& idtable,	//возврат: номер строки(если есть) TI_NULLID(если нет)
+		IdTable& idtable,	//РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё(РµСЃР»Рё РµСЃС‚СЊ) TI_NULLID(РµСЃР»Рё РЅРµС‚)
 		IDDATATYPE type,
 		char* data
 	);
 
-	bool isUniq(IdTable& idtable,	//возврат: номер строки(если есть) TI_NULLID(если нет)
+	bool isUniq(IdTable& idtable,	//РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё(РµСЃР»Рё РµСЃС‚СЊ) TI_NULLID(РµСЃР»Рё РЅРµС‚)
 		char id[ID_MAXSIZE]);
-	void Delete(IdTable& idtable);	//удалить таблицу идентификаторов
+	void Delete(IdTable& idtable);	//СѓРґР°Р»РёС‚СЊ С‚Р°Р±Р»РёС†Сѓ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 }

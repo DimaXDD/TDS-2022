@@ -1,4 +1,4 @@
-#include "tchar.h"
+п»ї#include "tchar.h"
 #include <iostream>
 #include <locale>
 #include <cwchar>
@@ -22,25 +22,25 @@ int _tmain(int argc, _TCHAR* argv[])
 	Out::OUT out = Out::INITOUT;
 	try
 	{
-		Parm::PARM parm = Parm::getparm(argc, argv); // получение параметров командной строки
-		log = Log::getlog(parm.log); // получение лога
-		out = Out::getout(parm.out); // получение файла вывода
-		Log::WriteParm(log, parm); // запись параметров в лог
-		Log::WriteLog(log); // запись лога
-		In::IN in = In::getin(parm.in); // получение входного файла
-		Log::WriteIn(log, in); // запись входного файла в лог
+		Parm::PARM parm = Parm::getparm(argc, argv); // РїРѕР»СѓС‡РµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
+		log = Log::getlog(parm.log); // РїРѕР»СѓС‡РµРЅРёРµ Р»РѕРіР°
+		out = Out::getout(parm.out); // РїРѕР»СѓС‡РµРЅРёРµ С„Р°Р№Р»Р° РІС‹РІРѕРґР°
+		Log::WriteParm(log, parm); // Р·Р°РїРёСЃСЊ РїР°СЂР°РјРµС‚СЂРѕРІ РІ Р»РѕРі
+		Log::WriteLog(log); // Р·Р°РїРёСЃСЊ Р»РѕРіР°
+		In::IN in = In::getin(parm.in); // РїРѕР»СѓС‡РµРЅРёРµ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°
+		Log::WriteIn(log, in); // Р·Р°РїРёСЃСЊ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р° РІ Р»РѕРі
 
-		LEX::LEX tables(LT::Create(in.lexems.size()), IT::Create(in.lexems.size())); // создание таблиц лексем и идентификаторов
+		LEX::LEX tables(LT::Create(in.lexems.size()), IT::Create(in.lexems.size())); // СЃРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС† Р»РµРєСЃРµРј Рё РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 
-		Log::WriteLine(log, "--------Начало лексического анализа--------", "");
-		// лексический анализатор
+		Log::WriteLine(log, "--------РќР°С‡Р°Р»Рѕ Р»РµРєСЃРёС‡РµСЃРєРѕРіРѕ Р°РЅР°Р»РёР·Р°--------", "");
+		// Р»РµРєСЃРёС‡РµСЃРєРёР№ Р°РЅР°Р»РёР·Р°С‚РѕСЂ
 		FST::LexAnalyzer(in, out, log, tables.lextable, tables.idtable); 
 
-		if (parm.showTables)Log::LogTables(log, tables); // вывод таблиц в лог
-		if (parm.showITables)Log::LogIDTables(log, tables); // вывод таблиц идентификаторов в лог
-		Log::WriteLine(log, "--------Конец лексического анализа--------", "");
+		if (parm.showTables)Log::LogTables(log, tables); // РІС‹РІРѕРґ С‚Р°Р±Р»РёС† РІ Р»РѕРі
+		if (parm.showITables)Log::LogIDTables(log, tables); // РІС‹РІРѕРґ С‚Р°Р±Р»РёС† РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ РІ Р»РѕРі
+		Log::WriteLine(log, "--------РљРѕРЅРµС† Р»РµРєСЃРёС‡РµСЃРєРѕРіРѕ Р°РЅР°Р»РёР·Р°--------", "");
 
-		Log::WriteLine(log, "--------Начало синтаксического анализа--------", "");
+		Log::WriteLine(log, "--------РќР°С‡Р°Р»Рѕ СЃРёРЅС‚Р°РєСЃРёС‡РµСЃРєРѕРіРѕ Р°РЅР°Р»РёР·Р°--------", "");
 		if (parm.showMfst)MFST_TRACE_START(log); 
 		MFST::Mfst mfst(tables, GRB::getGreibach(), parm.showMfst); 
 		if (!mfst.start(log)) 
@@ -49,21 +49,21 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		mfst.savededucation(); 
 		mfst.printrules(log); 
-		Log::WriteLine(log, "--------Конец синтаксического анализа--------", "");
+		Log::WriteLine(log, "--------РљРѕРЅРµС† СЃРёРЅС‚Р°РєСЃРёС‡РµСЃРєРѕРіРѕ Р°РЅР°Р»РёР·Р°--------", "");
 
-		Log::WriteLine(log, "--------Начало семантического анализа--------", "");
-		//семантический анализ
+		Log::WriteLine(log, "--------РќР°С‡Р°Р»Рѕ СЃРµРјР°РЅС‚РёС‡РµСЃРєРѕРіРѕ Р°РЅР°Р»РёР·Р°--------", "");
+		//СЃРµРјР°РЅС‚РёС‡РµСЃРєРёР№ Р°РЅР°Р»РёР·
 		Semantic::doAnalyse(tables);
-		Log::WriteLine(log, "--------Конец семантического анализа--------", "");
+		Log::WriteLine(log, "--------РљРѕРЅРµС† СЃРµРјР°РЅС‚РёС‡РµСЃРєРѕРіРѕ Р°РЅР°Р»РёР·Р°--------", "");
 
-		//польская запись
+		//РїРѕР»СЊСЃРєР°СЏ Р·Р°РїРёСЃСЊ
 		PolishNotation::DoPolish(tables);
 
-		Log::WriteLine(log, "--------Все анализаторы отработали без ошибок--------", "");
+		Log::WriteLine(log, "--------Р’СЃРµ Р°РЅР°Р»РёР·Р°С‚РѕСЂС‹ РѕС‚СЂР°Р±РѕС‚Р°Р»Рё Р±РµР· РѕС€РёР±РѕРє--------", "");
 
-		//генерация кода
+		//РіРµРЅРµСЂР°С†РёСЏ РєРѕРґР°
 		CG::Generate(tables, out);
-		Log::WriteLine(log, "--------Код успешно сгенерирован--------", "");
+		Log::WriteLine(log, "--------РљРѕРґ СѓСЃРїРµС€РЅРѕ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅ--------", "");
 
 	}
 	catch (Error::ERROR e)

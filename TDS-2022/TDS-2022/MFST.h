@@ -1,4 +1,4 @@
-#include <stack>
+п»ї#include <stack>
 #include "GRB.h"
 #include "LT.h"
 #include "Error.h"
@@ -17,93 +17,93 @@ struct use_container : T
 
 typedef use_container<std::stack<short>> MFSTSTACK; //MFSTSTSTACK;
 
-//typedef std::stack<short> MFSTSTACK;	//СТЕК АВТОМАТА
+//typedef std::stack<short> MFSTSTACK;	//РЎРўР•Рљ РђР’РўРћРњРђРўРђ
 namespace MFST
 {
-	struct MfstState		//состояние автомата
+	struct MfstState		//СЃРѕСЃС‚РѕСЏРЅРёРµ Р°РІС‚РѕРјР°С‚Р°
 	{
-		short lenta_position;	//позиция на ленте
-		short nrule;			//номер текущего правила
-		short nrulechain;		//Номер текущей цепочки
-		MFSTSTACK st;			 //стек автомата
+		short lenta_position;	//РїРѕР·РёС†РёСЏ РЅР° Р»РµРЅС‚Рµ
+		short nrule;			//РЅРѕРјРµСЂ С‚РµРєСѓС‰РµРіРѕ РїСЂР°РІРёР»Р°
+		short nrulechain;		//РќРѕРјРµСЂ С‚РµРєСѓС‰РµР№ С†РµРїРѕС‡РєРё
+		MFSTSTACK st;			 //СЃС‚РµРє Р°РІС‚РѕРјР°С‚Р°
 		MfstState();
 		MfstState(
-			short pposition,	//позиция на ленте
-			MFSTSTACK pst,		//стек автомата
-			short pnrulechain);	//номер текущей цепочки, текущего правила
+			short pposition,	//РїРѕР·РёС†РёСЏ РЅР° Р»РµРЅС‚Рµ
+			MFSTSTACK pst,		//СЃС‚РµРє Р°РІС‚РѕРјР°С‚Р°
+			short pnrulechain);	//РЅРѕРјРµСЂ С‚РµРєСѓС‰РµР№ С†РµРїРѕС‡РєРё, С‚РµРєСѓС‰РµРіРѕ РїСЂР°РІРёР»Р°
 		MfstState(
-			short pposition,	//позиция на ленте
-			MFSTSTACK pst,		//стек автомата
-			short pnrule,		//номер текущего правила
-			short pnrulechain	//номер текущей цепокаи, текущего правила
+			short pposition,	//РїРѕР·РёС†РёСЏ РЅР° Р»РµРЅС‚Рµ
+			MFSTSTACK pst,		//СЃС‚РµРє Р°РІС‚РѕРјР°С‚Р°
+			short pnrule,		//РЅРѕРјРµСЂ С‚РµРєСѓС‰РµРіРѕ РїСЂР°РІРёР»Р°
+			short pnrulechain	//РЅРѕРјРµСЂ С‚РµРєСѓС‰РµР№ С†РµРїРѕРєР°Рё, С‚РµРєСѓС‰РµРіРѕ РїСЂР°РІРёР»Р°
 		);
 	};
-	struct Mfst					//магазинный автомат
+	struct Mfst					//РјР°РіР°Р·РёРЅРЅС‹Р№ Р°РІС‚РѕРјР°С‚
 	{
-		enum RC_STEP {			//код возврата функции step
-			NS_OK,				//правило найдено и записано в стек
-			NS_NORULE,			//не найдено правило в грамматике
-			NS_NORULECHAIN,		//не найдена подходящая цепочка(в исходном коде ошибка)
-			NS_ERROR,			//неизвестный нетерминальный символ грамматики
-			TS_OK,				//тек. символ ленты == вершине стека, продвинулась лента, pop стека
-			TS_NOK,				//тек символ != вершине стека, восстановление состояния
-			LENTA_END,			//текущая позиция >= LentaSize
-			SURPRISE			//неожиданность
+		enum RC_STEP {			//РєРѕРґ РІРѕР·РІСЂР°С‚Р° С„СѓРЅРєС†РёРё step
+			NS_OK,				//РїСЂР°РІРёР»Рѕ РЅР°Р№РґРµРЅРѕ Рё Р·Р°РїРёСЃР°РЅРѕ РІ СЃС‚РµРє
+			NS_NORULE,			//РЅРµ РЅР°Р№РґРµРЅРѕ РїСЂР°РІРёР»Рѕ РІ РіСЂР°РјРјР°С‚РёРєРµ
+			NS_NORULECHAIN,		//РЅРµ РЅР°Р№РґРµРЅР° РїРѕРґС…РѕРґСЏС‰Р°СЏ С†РµРїРѕС‡РєР°(РІ РёСЃС…РѕРґРЅРѕРј РєРѕРґРµ РѕС€РёР±РєР°)
+			NS_ERROR,			//РЅРµРёР·РІРµСЃС‚РЅС‹Р№ РЅРµС‚РµСЂРјРёРЅР°Р»СЊРЅС‹Р№ СЃРёРјРІРѕР» РіСЂР°РјРјР°С‚РёРєРё
+			TS_OK,				//С‚РµРє. СЃРёРјРІРѕР» Р»РµРЅС‚С‹ == РІРµСЂС€РёРЅРµ СЃС‚РµРєР°, РїСЂРѕРґРІРёРЅСѓР»Р°СЃСЊ Р»РµРЅС‚Р°, pop СЃС‚РµРєР°
+			TS_NOK,				//С‚РµРє СЃРёРјРІРѕР» != РІРµСЂС€РёРЅРµ СЃС‚РµРєР°, РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ
+			LENTA_END,			//С‚РµРєСѓС‰Р°СЏ РїРѕР·РёС†РёСЏ >= LentaSize
+			SURPRISE			//РЅРµРѕР¶РёРґР°РЅРЅРѕСЃС‚СЊ
 		};
-		struct MfstDiagnosis	//диагностика
+		struct MfstDiagnosis	//РґРёР°РіРЅРѕСЃС‚РёРєР°
 		{
-			short lenta_position;	//позиция на ленте
-			RC_STEP rc_step;		//код завершения шага
-			short nrule;			//номер правила
-			short nrule_chain;		//номер цепочки правила
+			short lenta_position;	//РїРѕР·РёС†РёСЏ РЅР° Р»РµРЅС‚Рµ
+			RC_STEP rc_step;		//РєРѕРґ Р·Р°РІРµСЂС€РµРЅРёСЏ С€Р°РіР°
+			short nrule;			//РЅРѕРјРµСЂ РїСЂР°РІРёР»Р°
+			short nrule_chain;		//РЅРѕРјРµСЂ С†РµРїРѕС‡РєРё РїСЂР°РІРёР»Р°
 			MfstDiagnosis();
-			MfstDiagnosis(			//диагностика
-				short plenta_position,	//позиция на ленте
-				RC_STEP prc_step,		//код завершения шага
-				short pnrule,			//номер правила
-				short pnrule_chain		//номер цепочки правила
+			MfstDiagnosis(			//РґРёР°РіРЅРѕСЃС‚РёРєР°
+				short plenta_position,	//РїРѕР·РёС†РёСЏ РЅР° Р»РµРЅС‚Рµ
+				RC_STEP prc_step,		//РєРѕРґ Р·Р°РІРµСЂС€РµРЅРёСЏ С€Р°РіР°
+				short pnrule,			//РЅРѕРјРµСЂ РїСЂР°РІРёР»Р°
+				short pnrule_chain		//РЅРѕРјРµСЂ С†РµРїРѕС‡РєРё РїСЂР°РІРёР»Р°
 			);
-		} diagnosis[MFST_DIAGN_NUMBER];	//последние самые глубокие сообщения??
+		} diagnosis[MFST_DIAGN_NUMBER];	//РїРѕСЃР»РµРґРЅРёРµ СЃР°РјС‹Рµ РіР»СѓР±РѕРєРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ??
 
-		GRBALPHABET* lenta;				//перекодированная лента из lex
-		short lenta_position;			//текущая позиция на ленте
-		short nrule;					//номер текущего правила
-		short nrulechain;				//номер текущей цепочки, текущего правила
-		short lenta_size;				//размер ленты
-		GRB::Greibach greibach;			//грамматика Грейбах
-		LEX::LEX lex;				//результат работы лексического анализатора
-		MFSTSTACK st;					//стек автомата
+		GRBALPHABET* lenta;				//РїРµСЂРµРєРѕРґРёСЂРѕРІР°РЅРЅР°СЏ Р»РµРЅС‚Р° РёР· lex
+		short lenta_position;			//С‚РµРєСѓС‰Р°СЏ РїРѕР·РёС†РёСЏ РЅР° Р»РµРЅС‚Рµ
+		short nrule;					//РЅРѕРјРµСЂ С‚РµРєСѓС‰РµРіРѕ РїСЂР°РІРёР»Р°
+		short nrulechain;				//РЅРѕРјРµСЂ С‚РµРєСѓС‰РµР№ С†РµРїРѕС‡РєРё, С‚РµРєСѓС‰РµРіРѕ РїСЂР°РІРёР»Р°
+		short lenta_size;				//СЂР°Р·РјРµСЂ Р»РµРЅС‚С‹
+		GRB::Greibach greibach;			//РіСЂР°РјРјР°С‚РёРєР° Р“СЂРµР№Р±Р°С…
+		LEX::LEX lex;				//СЂРµР·СѓР»СЊС‚Р°С‚ СЂР°Р±РѕС‚С‹ Р»РµРєСЃРёС‡РµСЃРєРѕРіРѕ Р°РЅР°Р»РёР·Р°С‚РѕСЂР°
+		MFSTSTACK st;					//СЃС‚РµРє Р°РІС‚РѕРјР°С‚Р°
 		bool shallWrite;
-		use_container<std::stack<MfstState>> storestate;	//стек сохранения состояний
+		use_container<std::stack<MfstState>> storestate;	//СЃС‚РµРє СЃРѕС…СЂР°РЅРµРЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёР№
 		Mfst();
 		Mfst(
-			LEX::LEX plex,				//результат работы лексического анализатора
-			GRB::Greibach pgreibach,		//грамматика грейбах
+			LEX::LEX plex,				//СЂРµР·СѓР»СЊС‚Р°С‚ СЂР°Р±РѕС‚С‹ Р»РµРєСЃРёС‡РµСЃРєРѕРіРѕ Р°РЅР°Р»РёР·Р°С‚РѕСЂР°
+			GRB::Greibach pgreibach,		//РіСЂР°РјРјР°С‚РёРєР° РіСЂРµР№Р±Р°С…
 			bool shouldWrite
 		);
-		char* getCSt(char* buf);		//получить содержимое стека
-		char* getCLenta(char* buf, short pos, short n = 25);		//лента: n символов с pos
-		char* getDiagnosis(short n, char* buf);	//получить n-ю сумму диагностики или 0х00
-		bool savestate(const Log::LOG& log);						//сохранить состояние автомата
-		bool reststate(const Log::LOG& log);						//восстановитьсостояние автомата
-		bool push_chain(						//поместить цепочку правила в стек
-			GRB::Rule::Chain chain			//цепочка правила
+		char* getCSt(char* buf);		//РїРѕР»СѓС‡РёС‚СЊ СЃРѕРґРµСЂР¶РёРјРѕРµ СЃС‚РµРєР°
+		char* getCLenta(char* buf, short pos, short n = 25);		//Р»РµРЅС‚Р°: n СЃРёРјРІРѕР»РѕРІ СЃ pos
+		char* getDiagnosis(short n, char* buf);	//РїРѕР»СѓС‡РёС‚СЊ n-СЋ СЃСѓРјРјСѓ РґРёР°РіРЅРѕСЃС‚РёРєРё РёР»Рё 0С…00
+		bool savestate(const Log::LOG& log);						//СЃРѕС…СЂР°РЅРёС‚СЊ СЃРѕСЃС‚РѕСЏРЅРёРµ Р°РІС‚РѕРјР°С‚Р°
+		bool reststate(const Log::LOG& log);						//РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊСЃРѕСЃС‚РѕСЏРЅРёРµ Р°РІС‚РѕРјР°С‚Р°
+		bool push_chain(						//РїРѕРјРµСЃС‚РёС‚СЊ С†РµРїРѕС‡РєСѓ РїСЂР°РІРёР»Р° РІ СЃС‚РµРє
+			GRB::Rule::Chain chain			//С†РµРїРѕС‡РєР° РїСЂР°РІРёР»Р°
 		);
-		RC_STEP step(const Log::LOG& log);						//выполнить шаг автомата
-		bool start(const Log::LOG& log);						//запустить автомат
+		RC_STEP step(const Log::LOG& log);						//РІС‹РїРѕР»РЅРёС‚СЊ С€Р°Рі Р°РІС‚РѕРјР°С‚Р°
+		bool start(const Log::LOG& log);						//Р·Р°РїСѓСЃС‚РёС‚СЊ Р°РІС‚РѕРјР°С‚
 		bool savediagnosis(
-			RC_STEP pprc_step				//код завершения шага
+			RC_STEP pprc_step				//РєРѕРґ Р·Р°РІРµСЂС€РµРЅРёСЏ С€Р°РіР°
 		);
-		void printrules(const Log::LOG& lo);					//вывести последовательность правил
+		void printrules(const Log::LOG& lo);					//РІС‹РІРµСЃС‚Рё РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ РїСЂР°РІРёР»
 
-		struct Deducation					//вывод
+		struct Deducation					//РІС‹РІРѕРґ
 		{
-			short size;						//кол-во шагов в выводе
-			short* nrules;					//номера правил в грамматике
-			short* nrulechains;				//номера цепочек правил грамматики
+			short size;						//РєРѕР»-РІРѕ С€Р°РіРѕРІ РІ РІС‹РІРѕРґРµ
+			short* nrules;					//РЅРѕРјРµСЂР° РїСЂР°РІРёР» РІ РіСЂР°РјРјР°С‚РёРєРµ
+			short* nrulechains;				//РЅРѕРјРµСЂР° С†РµРїРѕС‡РµРє РїСЂР°РІРёР» РіСЂР°РјРјР°С‚РёРєРё
 			Deducation() { size = 0; nrules = 0; nrulechains = 0; };
 		} deducation;
 
-		bool savededucation();				//сохранить дерево вывода
+		bool savededucation();				//СЃРѕС…СЂР°РЅРёС‚СЊ РґРµСЂРµРІРѕ РІС‹РІРѕРґР°
 	};
 }

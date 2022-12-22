@@ -1,11 +1,11 @@
-#pragma once
+п»ї#pragma once
 #define LEXEMA_FIXSIZE 1
 #define LT_MAXSIZE 4096
 #define LT_TI_NULLIDX 0XFFFFFFFF
 #define LEX_INTEGER 't'
 #define LEX_STRING	't'
 #define LEX_CHAR	't' 
-#define LEX_TYPE	LEX_STRING //лексема типа(uint/symbol)
+#define LEX_TYPE	LEX_STRING //Р»РµРєСЃРµРјР° С‚РёРїР°(uint/symbol)
 #define LEX_ID		'i'
 #define LEX_UNTIL		'u'
 #define LEX_IF		'o'
@@ -37,19 +37,19 @@
 
 namespace LT
 {
-	struct Entry //строка таблицы лексем
+	struct Entry //СЃС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ Р»РµРєСЃРµРј
 	{
-		char lexema;//лексема
-		int sn; //номер строки в исходном тексте
-		int cn; //номер столбца в исходном тексте
-		int idxTI;	//индекс идентификатора в таблице
+		char lexema;//Р»РµРєСЃРµРјР°
+		int sn; //РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё РІ РёСЃС…РѕРґРЅРѕРј С‚РµРєСЃС‚Рµ
+		int cn; //РЅРѕРјРµСЂ СЃС‚РѕР»Р±С†Р° РІ РёСЃС…РѕРґРЅРѕРј С‚РµРєСЃС‚Рµ
+		int idxTI;	//РёРЅРґРµРєСЃ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° РІ С‚Р°Р±Р»РёС†Рµ
 		char data;
 
 		Entry(
 			char lexema,
-			int sn, //номер строки в исходном тексте
-			int cn, //номер столбца в исходном тексте
-			int idxTI,	//индекс идентификатора в таблице
+			int sn, //РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё РІ РёСЃС…РѕРґРЅРѕРј С‚РµРєСЃС‚Рµ
+			int cn, //РЅРѕРјРµСЂ СЃС‚РѕР»Р±С†Р° РІ РёСЃС…РѕРґРЅРѕРј С‚РµРєСЃС‚Рµ
+			int idxTI,	//РёРЅРґРµРєСЃ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° РІ С‚Р°Р±Р»РёС†Рµ
 			char symbol = EMPTY_DATA
 		) {
 			this->lexema = lexema;
@@ -61,24 +61,24 @@ namespace LT
 
 		Entry() = default;
 	};
-	struct LexTable //экземпляр таблицы лексем
+	struct LexTable //СЌРєР·РµРјРїР»СЏСЂ С‚Р°Р±Р»РёС†С‹ Р»РµРєСЃРµРј
 	{
-		int maxsize; //емкость <LT_MAXSIZE
-		int size; //текущий размер таблицы лексем
-		Entry* table;	//массив строк
+		int maxsize; //РµРјРєРѕСЃС‚СЊ <LT_MAXSIZE
+		int size; //С‚РµРєСѓС‰РёР№ СЂР°Р·РјРµСЂ С‚Р°Р±Р»РёС†С‹ Р»РµРєСЃРµРј
+		Entry* table;	//РјР°СЃСЃРёРІ СЃС‚СЂРѕРє
 	};
-	LexTable Create(//создать таблицу лексем
-		int size//емкость таблицы лексем < ДЕ_ЬФЧЫШЯУ
+	LexTable Create(//СЃРѕР·РґР°С‚СЊ С‚Р°Р±Р»РёС†Сѓ Р»РµРєСЃРµРј
+		int size//РµРјРєРѕСЃС‚СЊ С‚Р°Р±Р»РёС†С‹ Р»РµРєСЃРµРј < Р”Р•_Р¬Р¤Р§Р«РЁРЇРЈ
 	);
-	void Add(	//добавить строку в таблицу лексем
-		LexTable& lextable,		//экземпляр таблицы лексем
-		Entry entry	//строка таблицы лексем
+	void Add(	//РґРѕР±Р°РІРёС‚СЊ СЃС‚СЂРѕРєСѓ РІ С‚Р°Р±Р»РёС†Сѓ Р»РµРєСЃРµРј
+		LexTable& lextable,		//СЌРєР·РµРјРїР»СЏСЂ С‚Р°Р±Р»РёС†С‹ Р»РµРєСЃРµРј
+		Entry entry	//СЃС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ Р»РµРєСЃРµРј
 	);
-	Entry GetEntry(	//получить строку таблицы лексем
-		LexTable& lextable, //экземпляр
-		int n //номер получаемой строки
+	Entry GetEntry(	//РїРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєСѓ С‚Р°Р±Р»РёС†С‹ Р»РµРєСЃРµРј
+		LexTable& lextable, //СЌРєР·РµРјРїР»СЏСЂ
+		int n //РЅРѕРјРµСЂ РїРѕР»СѓС‡Р°РµРјРѕР№ СЃС‚СЂРѕРєРё
 	);
 
 
-	void Delete(LexTable& lextable);	//удалить таблицу лексем
+	void Delete(LexTable& lextable);	//СѓРґР°Р»РёС‚СЊ С‚Р°Р±Р»РёС†Сѓ Р»РµРєСЃРµРј
 }

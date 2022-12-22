@@ -1,4 +1,4 @@
-#include "Parm.h"
+п»ї#include "Parm.h"
 #include "Error.h"
 #include "Out.h"
 #include <fstream>
@@ -8,7 +8,7 @@
 #include <cstdarg>
 #include "time.h"
 
-namespace Out //работа с протоколом
+namespace Out //СЂР°Р±РѕС‚Р° СЃ РїСЂРѕС‚РѕРєРѕР»РѕРј
 {
 	OUT getout(wchar_t outfile[])
 	{

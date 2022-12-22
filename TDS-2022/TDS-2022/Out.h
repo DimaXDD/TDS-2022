@@ -1,18 +1,18 @@
-#pragma once
+п»ї#pragma once
 #include <fstream>
 #include "Parm.h"
 #include "Error.h"
-namespace Out //работа с протоколом
+namespace Out //СЂР°Р±РѕС‚Р° СЃ РїСЂРѕС‚РѕРєРѕР»РѕРј
 {
-	struct OUT //протокол
+	struct OUT //РїСЂРѕС‚РѕРєРѕР»
 	{
-		wchar_t outfile[PARM_MAX_SIZE]; //имя файла протокола
-		std::ofstream* stream;			//входной поток протокола
+		wchar_t outfile[PARM_MAX_SIZE]; //РёРјСЏ С„Р°Р№Р»Р° РїСЂРѕС‚РѕРєРѕР»Р°
+		std::ofstream* stream;			//РІС…РѕРґРЅРѕР№ РїРѕС‚РѕРє РїСЂРѕС‚РѕРєРѕР»Р°
 	};
 
-	static const OUT INITOUT = { L"",NULL };		//структура для начальной инициализации LOG
-	OUT getout(wchar_t outfile[]);					// сформировать структуру LOG
-	void WriteLine(OUT out, const char* c, ...); //вывести в протокол конкатенацию строк
-	void WriteLine(OUT out, wchar_t* c, ...); //вывести в протокол конкатенацию строк
-	void Close(OUT out); //закрыть протокол
+	static const OUT INITOUT = { L"",NULL };		//СЃС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ РЅР°С‡Р°Р»СЊРЅРѕР№ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё LOG
+	OUT getout(wchar_t outfile[]);					// СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ СЃС‚СЂСѓРєС‚СѓСЂСѓ LOG
+	void WriteLine(OUT out, const char* c, ...); //РІС‹РІРµСЃС‚Рё РІ РїСЂРѕС‚РѕРєРѕР» РєРѕРЅРєР°С‚РµРЅР°С†РёСЋ СЃС‚СЂРѕРє
+	void WriteLine(OUT out, wchar_t* c, ...); //РІС‹РІРµСЃС‚Рё РІ РїСЂРѕС‚РѕРєРѕР» РєРѕРЅРєР°С‚РµРЅР°С†РёСЋ СЃС‚СЂРѕРє
+	void Close(OUT out); //Р·Р°РєСЂС‹С‚СЊ РїСЂРѕС‚РѕРєРѕР»
 }

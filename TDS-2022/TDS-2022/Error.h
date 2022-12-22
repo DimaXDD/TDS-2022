@@ -1,9 +1,9 @@
-#pragma once
+п»ї#pragma once
 #define ERROR_THROW(id) Error::geterror(id);
-#define ERROR_THROW_IN(id, l, c) Error::geterrorin(id, l, c); //id строка колонка
-#define ERROR_ENTRY(id, m) {id, m,{-1, -1}} //элемент таблицы ошибок
+#define ERROR_THROW_IN(id, l, c) Error::geterrorin(id, l, c); //id СЃС‚СЂРѕРєР° РєРѕР»РѕРЅРєР°
+#define ERROR_ENTRY(id, m) {id, m,{-1, -1}} //СЌР»РµРјРµРЅС‚ С‚Р°Р±Р»РёС†С‹ РѕС€РёР±РѕРє
 #define ERROR_MAXSIZE_MESSAGE 200
-#define ERROR_ENTRY_NODEF(id) ERROR_ENTRY(-id,"Неопределенная ошибка") //1 неопределенный элемент таблицы ошибок
+#define ERROR_ENTRY_NODEF(id) ERROR_ENTRY(-id,"РќРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ РѕС€РёР±РєР°") //1 РЅРµРѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚ С‚Р°Р±Р»РёС†С‹ РѕС€РёР±РѕРє
 
 #define ERROR_ENTRY_NODEF10(id)			ERROR_ENTRY_NODEF(id+0),ERROR_ENTRY_NODEF(id+1),ERROR_ENTRY_NODEF(id+2),ERROR_ENTRY_NODEF(id+3),\
 										ERROR_ENTRY_NODEF(id+4),ERROR_ENTRY_NODEF(id+5),ERROR_ENTRY_NODEF(id+6),ERROR_ENTRY_NODEF(id+7),\
@@ -20,13 +20,13 @@ namespace Error
 	struct ERROR
 	{
 		int id;
-		char message[ERROR_MAXSIZE_MESSAGE]; //сообщение об ошибке
+		char message[ERROR_MAXSIZE_MESSAGE]; //СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ
 		struct IN
 		{
-			short line;		//строка
-			short col;		//колонка 
+			short line;		//СЃС‚СЂРѕРєР°
+			short col;		//РєРѕР»РѕРЅРєР° 
 		} inext;
 	};
-	ERROR geterror(int id);							//получить ошибку по id
-	ERROR geterrorin(int id, int line, int col);	//получить ошибку по id с указанием строки и колонки
+	ERROR geterror(int id);							//РїРѕР»СѓС‡РёС‚СЊ РѕС€РёР±РєСѓ РїРѕ id
+	ERROR geterrorin(int id, int line, int col);	//РїРѕР»СѓС‡РёС‚СЊ РѕС€РёР±РєСѓ РїРѕ id СЃ СѓРєР°Р·Р°РЅРёРµРј СЃС‚СЂРѕРєРё Рё РєРѕР»РѕРЅРєРё
 }

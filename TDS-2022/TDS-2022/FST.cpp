@@ -1,4 +1,4 @@
-#include "FST.h"
+п»ї#include "FST.h"
 #include "Error.h"
 #include <cstdlib>
 #include <iomanip>
@@ -20,12 +20,12 @@ FST::RELATION::RELATION(char c, short ns)
 	nnode = ns;
 }
 
-FST::NODE::NODE() //по умолчанию
+FST::NODE::NODE() //РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 {
 	n_relation = 0;
 	RELATION* relations = NULL;
 };
-FST::NODE::NODE(short n, RELATION rel, ...) //с параметрами
+FST::NODE::NODE(short n, RELATION rel, ...) //СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
 {
 	n_relation = n;
 	RELATION* p = &rel;
@@ -45,19 +45,19 @@ FST::FST::FST(char* s, short ns, NODE n, ...)
 	rstates[0] = 0;
 	position = -1;
 };
-bool step(FST::FST& fst, short*& rstates, int length) //один шаг автомата
+bool step(FST::FST& fst, short*& rstates, int length) //РѕРґРёРЅ С€Р°Рі Р°РІС‚РѕРјР°С‚Р°
 {
 	bool rc = false;
 	bool contFlag = false;
-	std::swap(rstates, fst.rstates); // смена массивов
-	for (short i = 0; i < fst.nstates; i++) //цикл по всем состояниям
+	std::swap(rstates, fst.rstates); // СЃРјРµРЅР° РјР°СЃСЃРёРІРѕРІ
+	for (short i = 0; i < fst.nstates; i++) //С†РёРєР» РїРѕ РІСЃРµРј СЃРѕСЃС‚РѕСЏРЅРёСЏРј
 	{
-		if (rstates[i] == fst.position) //если возможная позиция текущая равна текущей позиции
-			for (short j = 0; j < fst.nodes[i].n_relation; j++) //до количеста инцендентных ребер
+		if (rstates[i] == fst.position) //РµСЃР»Рё РІРѕР·РјРѕР¶РЅР°СЏ РїРѕР·РёС†РёСЏ С‚РµРєСѓС‰Р°СЏ СЂР°РІРЅР° С‚РµРєСѓС‰РµР№ РїРѕР·РёС†РёРё
+			for (short j = 0; j < fst.nodes[i].n_relation; j++) //РґРѕ РєРѕР»РёС‡РµСЃС‚Р° РёРЅС†РµРЅРґРµРЅС‚РЅС‹С… СЂРµР±РµСЂ
 			{
-				if (fst.nodes[i].relations[j].symbol == fst.string[fst.position]) //если нашли такой символ
+				if (fst.nodes[i].relations[j].symbol == fst.string[fst.position]) //РµСЃР»Рё РЅР°С€Р»Рё С‚Р°РєРѕР№ СЃРёРјРІРѕР»
 				{
-					if (fst.position == length)//если последний символ в строке, то ищем есть ли второй узел(второй узел для выхода)
+					if (fst.position == length)//РµСЃР»Рё РїРѕСЃР»РµРґРЅРёР№ СЃРёРјРІРѕР» РІ СЃС‚СЂРѕРєРµ, С‚Рѕ РёС‰РµРј РµСЃС‚СЊ Р»Рё РІС‚РѕСЂРѕР№ СѓР·РµР»(РІС‚РѕСЂРѕР№ СѓР·РµР» РґР»СЏ РІС‹С…РѕРґР°)
 					{
 						contFlag = true;
 						continue;
@@ -69,11 +69,11 @@ bool step(FST::FST& fst, short*& rstates, int length) //один шаг автомата
 					}
 				};
 			};
-		if ((rc == false) && contFlag) //если не нашли второй узел то возвращаемся к первому
+		if ((rc == false) && contFlag) //РµСЃР»Рё РЅРµ РЅР°С€Р»Рё РІС‚РѕСЂРѕР№ СѓР·РµР» С‚Рѕ РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ Рє РїРµСЂРІРѕРјСѓ
 		{
-			for (short j = 0; j < fst.nodes[i].n_relation; j++) //до количеста инцендентных ребер
+			for (short j = 0; j < fst.nodes[i].n_relation; j++) //РґРѕ РєРѕР»РёС‡РµСЃС‚Р° РёРЅС†РµРЅРґРµРЅС‚РЅС‹С… СЂРµР±РµСЂ
 			{
-				if (fst.nodes[i].relations[j].symbol == fst.string[fst.position]) //если нашли такой символ
+				if (fst.nodes[i].relations[j].symbol == fst.string[fst.position]) //РµСЃР»Рё РЅР°С€Р»Рё С‚Р°РєРѕР№ СЃРёРјРІРѕР»
 				{
 
 					fst.rstates[fst.nodes[i].relations[j].nnode] = fst.position + 1;
@@ -107,26 +107,26 @@ public:
 private:
 	int column;
 } colum;
-bool FST::execute(FST& fst) //выполнить распознование цепочки
+bool FST::execute(FST& fst) //РІС‹РїРѕР»РЅРёС‚СЊ СЂР°СЃРїРѕР·РЅРѕРІР°РЅРёРµ С†РµРїРѕС‡РєРё
 {
 
 	fst.rstates[0] = 0;
 	fst.position = -1;
 	colum.reset_col();
-	short* rstates = new short[fst.nstates];//выделяем память по размеру
-	memset(rstates, 0xff, sizeof(short) * fst.nstates); //инициализируем пустотой (ff)
-	short lstring = strlen(fst.string); //длина цепочки
+	short* rstates = new short[fst.nstates];//РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РїРѕ СЂР°Р·РјРµСЂСѓ
+	memset(rstates, 0xff, sizeof(short) * fst.nstates); //РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РїСѓСЃС‚РѕС‚РѕР№ (ff)
+	short lstring = strlen(fst.string); //РґР»РёРЅР° С†РµРїРѕС‡РєРё
 	bool rc = true;
-	for (short i = 0; i < lstring && rc; i++) //по длине цепочки
+	for (short i = 0; i < lstring && rc; i++) //РїРѕ РґР»РёРЅРµ С†РµРїРѕС‡РєРё
 	{
-		fst.position++;			//продвинули позицию
-		rc = step(fst, rstates, lstring); //один шаг автомата
+		fst.position++;			//РїСЂРѕРґРІРёРЅСѓР»Рё РїРѕР·РёС†РёСЋ
+		rc = step(fst, rstates, lstring); //РѕРґРёРЅ С€Р°Рі Р°РІС‚РѕРјР°С‚Р°
 		colum.set_col(i);
 	}
 	delete[] rstates;
 	return (rc ? (fst.rstates[fst.nstates - 1] == lstring) : rc);
 }
-void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lextable, IT::IdTable& idtable) //выполнить распознование цепочки
+void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lextable, IT::IdTable& idtable) //РІС‹РїРѕР»РЅРёС‚СЊ СЂР°СЃРїРѕР·РЅРѕРІР°РЅРёРµ С†РµРїРѕС‡РєРё
 {
 	libfuncs libs[7];
 	int libslen = 7;
@@ -166,7 +166,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 	FST l_uint(
 		str,
-		5, //количество состояний
+		5, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('u', 1)),
 		NODE(1, RELATION('i', 2)),
 		NODE(1, RELATION('n', 3)),
@@ -175,7 +175,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 	);
 	FST l_until(
 		str,
-		6, //количество состояний
+		6, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('w', 1)),
 		NODE(1, RELATION('h', 2)),
 		NODE(1, RELATION('i', 3)),
@@ -185,7 +185,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 	);
 	FST l_if(
 		str,
-		3, //количество состояний
+		3, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('i', 1)),
 		NODE(1, RELATION('f', 2)),
 		NODE()
@@ -194,7 +194,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 	FST l_extern(
 		str,
-		7, //количество состояний
+		7, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('e', 1)),
 		NODE(1, RELATION('x', 2)),
 		NODE(1, RELATION('t', 3)),
@@ -206,7 +206,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 	FST l_str(
 		str,
-		7, //количество состояний
+		7, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('s', 1)),
 		NODE(1, RELATION('t', 2)),
 		NODE(1, RELATION('r', 3)),
@@ -219,7 +219,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 	FST l_numberLiteral(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(20,
 
 			RELATION('0', 0),
@@ -512,7 +512,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 	FST l_stringLiteral(
 		str,
-		3, //количество состояний
+		3, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('\"', 1)),
 		NODE(256,
 			RELATION('\"', 2),
@@ -778,7 +778,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 	FST l_itendificator(
 		str,
-		3, //количество состояний
+		3, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(106,
 			RELATION('a', 1),
 			RELATION('b', 1),
@@ -1020,7 +1020,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 	FST l_string(
 		str,
-		5, //количество состояний
+		5, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('c', 1)),
 		NODE(1, RELATION('h', 2)),
 		NODE(1, RELATION('a', 3)),
@@ -1030,7 +1030,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 	FST l_function(
 		str,
-		9, //количество состояний
+		9, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('f', 1)),
 		NODE(1, RELATION('u', 2)),
 		NODE(1, RELATION('n', 3)),
@@ -1043,7 +1043,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 	);
 	FST l_declare(
 		str,
-		8, //количество состояний
+		8, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('d', 1)),
 		NODE(1, RELATION('e', 2)),
 		NODE(1, RELATION('c', 3)),
@@ -1055,7 +1055,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 	);
 	FST l_return(
 		str,
-		7, //количество состояний
+		7, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('r', 1)),
 		NODE(1, RELATION('e', 2)),
 		NODE(1, RELATION('t', 3)),
@@ -1066,7 +1066,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 	);
 	FST l_printi(
 		str,
-		6, //количество состояний
+		6, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('p', 1)),
 		NODE(1, RELATION('r', 2)),
 		NODE(1, RELATION('i', 3)),
@@ -1076,7 +1076,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 	);
 	FST l_prints(
 		str,
-		5, //количество состояний
+		5, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('s', 1)),
 		NODE(1, RELATION('a', 2)),
 		NODE(1, RELATION('y', 3)),
@@ -1086,7 +1086,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 	FST l_main(
 		str,
-		5, //количество состояний
+		5, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('m', 1)),
 		NODE(1, RELATION('a', 2)),
 		NODE(1, RELATION('i', 3)),
@@ -1095,82 +1095,82 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 	);
 	FST l_conditional(
 		str,
-		3, //количество состояний
+		3, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('i', 1)),
 		NODE(1, RELATION('f', 2)),
 		NODE()
 	);
 	FST l_semicolon(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION(';', 1)),
 		NODE()
 	);
 	FST l_comma(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION(',', 1)),
 		NODE()
 	);
 	FST l_braceleft(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('{', 1)),
 		NODE()
 	);
 	FST l_braceright(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('}', 1)),
 		NODE()
 	);
 	FST l_lefthesis(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('(', 1)),
 		NODE()
 	);
 	FST l_cycleStart(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('[', 1)),
 		NODE()
 	);
 	FST l_cycleEnd(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION(']', 1)),
 		NODE()
 	);
 	FST l_conditionalStart(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION('[', 1)),
 		NODE()
 	);
 	FST l_conditionalEnd(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION(']', 1)),
 		NODE()
 	);
 	FST l_righthesis(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(1, RELATION(')', 1)),
 		NODE()
 	);
 
 	FST l_verb(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(8, RELATION('+', 1), RELATION('-', 1), RELATION('*', 1),
 			RELATION('/', 1), RELATION(':', 1), RELATION('\\', 1), RELATION('%', 1), RELATION('=', 1)),
 		NODE()
 	);
 	FST l_boolVerb(
 		str,
-		2, //количество состояний
+		2, //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
 		NODE(4, RELATION('^', 1), RELATION('<', 1), RELATION('>', 1), RELATION('&', 1)),
 		NODE()
 	);
@@ -1178,7 +1178,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 #pragma endregion
 
-#pragma region "Структура checker и её массив автоматов"
+#pragma region "РЎС‚СЂСѓРєС‚СѓСЂР° checker Рё РµС‘ РјР°СЃСЃРёРІ Р°РІС‚РѕРјР°С‚РѕРІ"
 	struct Checker {
 		FST* chain;
 		IT::IDDATATYPE iddatatype;
@@ -1236,7 +1236,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 #pragma endregion
 
-#pragma region "Флаги"
+#pragma region "Р¤Р»Р°РіРё"
 	std::string scopeName;
 	std::vector <std::string> scopeStack;
 	int literalCount = 0;
@@ -1266,14 +1266,14 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 
 	int sizze = in.lexems.size();
-#pragma region "перебор"
+#pragma region "РїРµСЂРµР±РѕСЂ"
 	for (int i = 0; i < sizze; i++)
 	{
 		In::lexem lex = in.lexems.front();
 		in.lexems.pop_front();
 
-		int len = strlen((const char*)(lex.lexem)); //длина строки ktrctvs
-#pragma region "запись лексемы в str"
+		int len = strlen((const char*)(lex.lexem)); //РґР»РёРЅР° СЃС‚СЂРѕРєРё ktrctvs
+#pragma region "Р·Р°РїРёСЃСЊ Р»РµРєСЃРµРјС‹ РІ str"
 		for (int k = 0; k < len; k++)
 		{
 			str[k] = lex.lexem[k];
@@ -1281,20 +1281,20 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 		str[len] = '\0';
 #pragma endregion
 
-		bool executedFlag = false;	// флаг окончания перебора цепочек
+		bool executedFlag = false;	// С„Р»Р°Рі РѕРєРѕРЅС‡Р°РЅРёСЏ РїРµСЂРµР±РѕСЂР° С†РµРїРѕС‡РµРє
 
 		for (int j = 0; j < checkArrLen; j++)
 		{
 			if (execute(*checkArr[j].chain))
 			{
 				executedFlag = true;
-#pragma region "Установка флага"
+#pragma region "РЈСЃС‚Р°РЅРѕРІРєР° С„Р»Р°РіР°"
 				LT::Entry lexTableObject(checkArr[j].lexName, lex.line, lex.col, 0xffffffff);
-				//нет until (уже есть)
-				//проверяем что за лексема
+				//РЅРµС‚ until (СѓР¶Рµ РµСЃС‚СЊ)
+				//РїСЂРѕРІРµСЂСЏРµРј С‡С‚Рѕ Р·Р° Р»РµРєСЃРµРјР°
 				switch (checkArr[j].lexName)
 				{
-					//если встретили declare
+					//РµСЃР»Рё РІСЃС‚СЂРµС‚РёР»Рё declare
 				case LEX_DECLARE: {
 					isDeclare = true;
 					type = IT::V;
@@ -1310,7 +1310,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 				}
 
 
-									  //если встретили uint/symbol
+									  //РµСЃР»Рё РІСЃС‚СЂРµС‚РёР»Рё uint/symbol
 				case LEX_TYPE: {
 					if (checkArr[j].iddatatype == IT::INT)
 					{
@@ -1326,29 +1326,29 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 					}
 					else
 					{
-						//дропай ошибку
+						//РґСЂРѕРїР°Р№ РѕС€РёР±РєСѓ
 						dataType = (IT::IDDATATYPE)FALSYNUMBER;
 					}
 					break;
 				}
-							 //функция
+							 //С„СѓРЅРєС†РёСЏ
 				case LEX_FUNCTION: {
 					type = IT::F;
 					break;
 				}
-								 //вывод
+								 //РІС‹РІРѕРґ
 				case LEX_PRINT: {
 					break;
 				}
-							  //идентификатор
+							  //РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
 				case LEX_ID: {
-					//область видимости
+					//РѕР±Р»Р°СЃС‚СЊ РІРёРґРёРјРѕСЃС‚Рё
 					if (strlen(str) > ID_CURRENT_MAXSIZE)
 					{
 						str[ID_CURRENT_MAXSIZE] = '\0';
 					}
 					std::string scope;
-					//если функция, то не учитываем скоуп
+					//РµСЃР»Рё С„СѓРЅРєС†РёСЏ, С‚Рѕ РЅРµ СѓС‡РёС‚С‹РІР°РµРј СЃРєРѕСѓРї
 					if (IT::IsId(idtable, str) != TI_NULLIDX && IT::GetEntry(idtable, IT::IsId(idtable, str)).idtype == (IT::IDTYPE::F))
 					{
 						scope += str;
@@ -1362,7 +1362,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 						}
 						scope += str;
 					}
-					//если нет такого итендфикатора
+					//РµСЃР»Рё РЅРµС‚ С‚Р°РєРѕРіРѕ РёС‚РµРЅРґС„РёРєР°С‚РѕСЂР°
 					if (IT::IsId(idtable, (char*)scope.c_str()) == TI_NULLIDX)
 					{
 						if (isExported) {
@@ -1385,9 +1385,9 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 									parmStackShouldWrite = true;
 							}
 						}
-						//если не параметр и не объявлен
+						//РµСЃР»Рё РЅРµ РїР°СЂР°РјРµС‚СЂ Рё РЅРµ РѕР±СЉСЏРІР»РµРЅ
 						if (type != (IT::IDTYPE::P) && !isDeclare && !isExported) {
-							//то мы пытаемся работать с необъявленным идентификатором
+							//С‚Рѕ РјС‹ РїС‹С‚Р°РµРјСЃСЏ СЂР°Р±РѕС‚Р°С‚СЊ СЃ РЅРµРѕР±СЉСЏРІР»РµРЅРЅС‹Рј РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРј
 							throw ERROR_THROW_IN(121, lex.line, lex.col)
 						}
 						if (dataType != (IT::IDDATATYPE)FALSYNUMBER && type != (IT::IDTYPE)FALSYNUMBER)
@@ -1398,55 +1398,55 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 							}
 
 
-							//добавляем в таблицу 
+							//РґРѕР±Р°РІР»СЏРµРј РІ С‚Р°Р±Р»РёС†Сѓ 
 							IT::Entry idTableObject(lextable.size, scope.c_str(), dataType, type, isExported);
 							IT::Add(idtable, idTableObject);
 							lexTableObject.idxTI = idtable.size - 1;
-							//снимаем флаг объявлённости и экспорта
+							//СЃРЅРёРјР°РµРј С„Р»Р°Рі РѕР±СЉСЏРІР»С‘РЅРЅРѕСЃС‚Рё Рё СЌРєСЃРїРѕСЂС‚Р°
 							isDeclare = false;
 							isExported = false;
 
-							//записываем в стек параметры импортируемой функции
+							//Р·Р°РїРёСЃС‹РІР°РµРј РІ СЃС‚РµРє РїР°СЂР°РјРµС‚СЂС‹ РёРјРїРѕСЂС‚РёСЂСѓРµРјРѕР№ С„СѓРЅРєС†РёРё
 							if (parmStackShouldWrite && type == IT::P) {
-								params.push(dataType); //проверка параметров экспортируемой функции
+								params.push(dataType); //РїСЂРѕРІРµСЂРєР° РїР°СЂР°РјРµС‚СЂРѕРІ СЌРєСЃРїРѕСЂС‚РёСЂСѓРµРјРѕР№ С„СѓРЅРєС†РёРё
 							}
-							//зануляем тип и вид
+							//Р·Р°РЅСѓР»СЏРµРј С‚РёРї Рё РІРёРґ
 							if (!isFunctionParam)
 								type = (IT::IDTYPE)FALSYNUMBER;
 							dataType = (IT::IDDATATYPE)FALSYNUMBER;
 						}
-						else //дропаем ошибку если тип или вид не определён
+						else //РґСЂРѕРїР°РµРј РѕС€РёР±РєСѓ РµСЃР»Рё С‚РёРї РёР»Рё РІРёРґ РЅРµ РѕРїСЂРµРґРµР»С‘РЅ
 							throw ERROR_THROW_IN(122, lex.line, lex.col);
 					}
 					else {
 						if (isDeclare || isExported)
 							throw ERROR_THROW_IN(700, lex.line, lex.col);
-						//если в таблице идентификаторов есть запись - ссылаемся на неё
+						//РµСЃР»Рё РІ С‚Р°Р±Р»РёС†Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ РµСЃС‚СЊ Р·Р°РїРёСЃСЊ - СЃСЃС‹Р»Р°РµРјСЃСЏ РЅР° РЅРµС‘
 						lexTableObject.idxTI = IT::IsId(idtable, (char*)scope.c_str());
 					}
 					break;
 				}
-						   //экспорт
+						   //СЌРєСЃРїРѕСЂС‚
 				case LEX_EXPORT: {
 					isExported = true;
 					break; }
-							   //левая скобка
+							   //Р»РµРІР°СЏ СЃРєРѕР±РєР°
 				case LEX_LEFTHESIS: {
-					//если предыдущий - имя функции
+					//РµСЃР»Рё РїСЂРµРґС‹РґСѓС‰РёР№ - РёРјСЏ С„СѓРЅРєС†РёРё
 					if (lextable.size != 0
 						&&
 						lextable.table[lextable.size - 1].idxTI != LT_TI_NULLIDX
 						&&
 						idtable.table[lextable.table[lextable.size - 1].idxTI].idtype == IT::F)
 					{
-						//если функцию только объявили
+						//РµСЃР»Рё С„СѓРЅРєС†РёСЋ С‚РѕР»СЊРєРѕ РѕР±СЉСЏРІРёР»Рё
 						if (lextable.table[lextable.size - 4].lexema == LEX_EXPORT || lextable.table[lextable.size - 4].lexema == LEX_DECLARE)
 						{
 							isFunctionParam = true;
 							type = IT::P;
 							scopeStack.push_back(scopeName);
 						}
-						//если функцию вызвали
+						//РµСЃР»Рё С„СѓРЅРєС†РёСЋ РІС‹Р·РІР°Р»Рё
 						else {
 							isFunctionParam = false;
 						}
@@ -1459,7 +1459,7 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 						throw ERROR_THROW_IN(602, lex.line, lex.col)
 
 						break; }
-								  //правая скобочка
+								  //РїСЂР°РІР°СЏ СЃРєРѕР±РѕС‡РєР°
 				case LEX_RIGHTHESIS: {
 					if (isBoleanExpression) {
 						isBoleanExpression = false;
@@ -1484,39 +1484,39 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 					}
 
 
-					//если параметры функции шли
+					//РµСЃР»Рё РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё С€Р»Рё
 					if (isFunctionParam)
 					{
-						//убираем область видимости
+						//СѓР±РёСЂР°РµРј РѕР±Р»Р°СЃС‚СЊ РІРёРґРёРјРѕСЃС‚Рё
 						scopeStack.pop_back();
-						//больше не параметры функции
+						//Р±РѕР»СЊС€Рµ РЅРµ РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё
 						isFunctionParam = false;
-						//закончили смотреть параметры, сейчас ожидаем тело функции
+						//Р·Р°РєРѕРЅС‡РёР»Рё СЃРјРѕС‚СЂРµС‚СЊ РїР°СЂР°РјРµС‚СЂС‹, СЃРµР№С‡Р°СЃ РѕР¶РёРґР°РµРј С‚РµР»Рѕ С„СѓРЅРєС†РёРё
 						isRequireBodyFunc = true;
-						//тип больше не параметр
+						//С‚РёРї Р±РѕР»СЊС€Рµ РЅРµ РїР°СЂР°РјРµС‚СЂ
 						type = (IT::IDTYPE)FALSYNUMBER;
 
 
 					}
-					//аргументы функции, то что передаётся в объявленную
+					//Р°СЂРіСѓРјРµРЅС‚С‹ С„СѓРЅРєС†РёРё, С‚Рѕ С‡С‚Рѕ РїРµСЂРµРґР°С‘С‚СЃСЏ РІ РѕР±СЉСЏРІР»РµРЅРЅСѓСЋ
 					else
 						type = (IT::IDTYPE)FALSYNUMBER;
 					break; }
-								   //левая фигурная
+								   //Р»РµРІР°СЏ С„РёРіСѓСЂРЅР°СЏ
 				case LEX_LEFTBRACE: {
 					hesisCounter++;
-					//если предыдущая лексема закрытсая скобочка и ожидаем тело функции
+					//РµСЃР»Рё РїСЂРµРґС‹РґСѓС‰Р°СЏ Р»РµРєСЃРµРјР° Р·Р°РєСЂС‹С‚СЃР°СЏ СЃРєРѕР±РѕС‡РєР° Рё РѕР¶РёРґР°РµРј С‚РµР»Рѕ С„СѓРЅРєС†РёРё
 					if (lextable.table[lextable.size - 1].lexema == LEX_RIGHTHESIS && isRequireBodyFunc)
 						scopeStack.push_back(scopeName.c_str());
-					//если main
+					//РµСЃР»Рё main
 					else if (lextable.table[lextable.size - 1].lexema == LEX_MAIN)
 						scopeStack.push_back("main");
-					//не будет тела функции
+					//РЅРµ Р±СѓРґРµС‚ С‚РµР»Р° С„СѓРЅРєС†РёРё
 					else
 						isRequireBodyFunc = false;
 					break;
 				}
-								  //правая фигурная
+								  //РїСЂР°РІР°СЏ С„РёРіСѓСЂРЅР°СЏ
 				case LEX_RIGHTBRACE: {
 					hesisCounter--;
 					if (isRequireBodyFunc)
@@ -1531,18 +1531,18 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 								   //main
 				case LEX_MAIN: {
 					if (!wasMain) {
-						//ожидеам тело функции
+						//РѕР¶РёРґРµР°Рј С‚РµР»Рѕ С„СѓРЅРєС†РёРё
 						isRequireBodyFunc = true;
-						//встречался ли main
+						//РІСЃС‚СЂРµС‡Р°Р»СЃСЏ Р»Рё main
 						wasMain = true;
 						break;
 					}
 					else
 						throw ERROR_THROW_IN(125, lex.line, lex.col);
 				}
-							 //литерал
+							 //Р»РёС‚РµСЂР°Р»
 				case LEX_LITERAL: {
-					//количество литералов
+					//РєРѕР»РёС‡РµСЃС‚РІРѕ Р»РёС‚РµСЂР°Р»РѕРІ
 					literalCount++;
 					lexTableObject.idxTI = idtable.size;
 
@@ -1581,16 +1581,16 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 						}
 					}
 
-					//если ретурним значит определили
+					//РµСЃР»Рё СЂРµС‚СѓСЂРЅРёРј Р·РЅР°С‡РёС‚ РѕРїСЂРµРґРµР»РёР»Рё
 					if (lextable.table[lextable.size - 1].lexema == LEX_RETURN)
 					{
 						continueFlag = true;
 						lexTableObject.idxTI = idtable.size;
 					}
-					//если такого литерала нет
+					//РµСЃР»Рё С‚Р°РєРѕРіРѕ Р»РёС‚РµСЂР°Р»Р° РЅРµС‚
 					if (continueFlag)
 					{
-						//формируем имя литерала
+						//С„РѕСЂРјРёСЂСѓРµРј РёРјСЏ Р»РёС‚РµСЂР°Р»Р°
 						std::string scope;
 						for (int j = scopeStack.size() - 1; j >= 0; j--) {
 							scope = scope + scopeStack.at(j);
@@ -1624,11 +1624,11 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 
 
 				}
-#pragma region "Если знаковая лексема"
+#pragma region "Р•СЃР»Рё Р·РЅР°РєРѕРІР°СЏ Р»РµРєСЃРµРјР°"
 				if (lexTableObject.lexema == LEX_MINUS || lexTableObject.lexema == LEX_LEFTBRACE || lexTableObject.lexema == LEX_RIGHTBRACE || lexTableObject.lexema == LEX_LEFTHESIS || lexTableObject.lexema == LEX_RIGHTHESIS)
 					lexTableObject.data = str[0];
 #pragma endregion
-#pragma region "Если булевая лексема"
+#pragma region "Р•СЃР»Рё Р±СѓР»РµРІР°СЏ Р»РµРєСЃРµРјР°"
 				if (lexTableObject.lexema == LEX_BOOL_OPERATOR)
 					lexTableObject.data = str[0];
 #pragma endregion
@@ -1638,14 +1638,14 @@ void FST::LexAnalyzer(In::IN in, Out::OUT out, Log::LOG log, LT::LexTable& lexta
 				break;
 			}
 		}
-		//если не распознали цепочку
+		//РµСЃР»Рё РЅРµ СЂР°СЃРїРѕР·РЅР°Р»Рё С†РµРїРѕС‡РєСѓ
 		if (!executedFlag)
 			throw ERROR_THROW_IN(120, lex.line, lex.col);
 	}
-	//если не было main
+	//РµСЃР»Рё РЅРµ Р±С‹Р»Рѕ main
 	if (!wasMain)
 		throw ERROR_THROW(124);
-	// если не совпадают скобки
+	// РµСЃР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚ СЃРєРѕР±РєРё
 	if (hesisCounter != 0)
 		throw ERROR_THROW(116);
 #pragma endregion

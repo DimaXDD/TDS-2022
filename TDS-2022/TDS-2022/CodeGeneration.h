@@ -1,12 +1,12 @@
-#pragma once
+п»ї#pragma once
 #include "LEX.h"
 #include "Out.h"
 
 namespace CG { 
-	void Generate(LEX::LEX t, Out::OUT o);						//передача парам-ов в Generator
-	void Head(std::ofstream* stream, LEX::LEX t);				//блок перечесления библиотек , модель .....
-	void Constants(std::ofstream* stream, LEX::LEX t);			//блок констант
-	void Data(std::ofstream* stream, LEX::LEX t);				//блок данных
-	void WriteFunctions(std::ofstream* stream, LEX::LEX t);		//блок функций
-	void Code(std::ofstream* stream, LEX::LEX t); 				//блок кода
+	void Generate(LEX::LEX t, Out::OUT o);						//РїРµСЂРµРґР°С‡Р° РїР°СЂР°Рј-РѕРІ РІ Generator
+	void Head(std::ofstream* stream, LEX::LEX t);				//Р±Р»РѕРє РїРµСЂРµС‡РµСЃР»РµРЅРёСЏ Р±РёР±Р»РёРѕС‚РµРє , РјРѕРґРµР»СЊ .....
+	void Constants(std::ofstream* stream, LEX::LEX t);			//Р±Р»РѕРє РєРѕРЅСЃС‚Р°РЅС‚
+	void Data(std::ofstream* stream, LEX::LEX t);				//Р±Р»РѕРє РґР°РЅРЅС‹С…
+	void WriteFunctions(std::ofstream* stream, LEX::LEX t);		//Р±Р»РѕРє С„СѓРЅРєС†РёР№
+	void Code(std::ofstream* stream, LEX::LEX t); 				//Р±Р»РѕРє РєРѕРґР°
 }
